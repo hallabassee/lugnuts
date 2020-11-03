@@ -1,0 +1,151 @@
+$black: #000000;
+$grey: #333333;
+$red: #c80000;
+$orange: #ff8b00;
+$ltgrey: #f2f2f2;
+$white: #ffffff;
+
+html,
+body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: $white;
+  color: $black;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper {
+  flex-grow: 1;
+}
+
+body,
+p,
+ol,
+ul,
+td {
+  font-family: 'Cabin', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.bg-grey {
+    background-color: $grey;
+}
+
+.bg-ltgrey {
+    background-color: $ltgrey;
+}
+
+.bg-orange {
+    background-color: $orange;
+}
+
+.fab {
+  color: $orange;
+}
+
+.page-header {
+    background-color: $grey;
+    text-align: center;
+}
+
+.footer {
+  background-color: $ltgrey;
+  color: $grey;
+}
+
+/* Remove the navbar's default margin-bottom and rounded borders */
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+.container-fluid {
+    padding: 0px;
+ }
+
+h1 {
+  font-family: 'Roboto Condensed', Sans-Serif;
+  color: $orange;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h2 {
+  font-family: 'Roboto Condensed', Sans-Serif;
+  color: $orange;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Links */
+a:link {
+  color: $orange;
+}
+
+a:visited {
+  color: $orange;
+}
+
+a:hover {
+  color: $red;
+  text-decoration: none;
+}
+
+a:active {
+  color: $red;
+}
+
+/* Buttons */
+.btn:focus,
+.btn:active,
+button:focus,
+button:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.primary-button.btn.btn-primary {
+  color: white;
+  background-color: $orange;
+  border-color: $orange;
+}
+
+.primary-button.btn.btn-primary:hover,
+.primary-button.btn.btn-primary:active {
+  color: white;
+  background-color: $orange;
+  border-color: $red;
+}
+
+.img-container {
+  position: relative;
+}
+
+/* Make the image responsive */
+.img-container img {
+  width: 100%;
+  height: auto;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.thumb {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+label {
+  margin: 0 10px;
+}
+
+
+/* end */

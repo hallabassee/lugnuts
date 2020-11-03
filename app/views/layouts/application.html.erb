@@ -1,15 +1,35 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Lugnuts</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+	<head>
+		<title>Lugnuts</title>
+		<meta charset="UTF-8">
+		<meta name=viewport content="width=device-width, initial-scale=1">
+		<%= csrf_meta_tags %>
+		<%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+		<link href="https://fonts.googleapis.com/css2?family=Cabin&family=Roboto+Condensed&display=swap" rel="stylesheet">
 
-  <body>
-    <%= yield %>
-  </body>
+		<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+		<%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+	</head>
+
+	<body class="<%= controller_name %> <%= action_name %>">
+		<header>
+			<%= render "layouts/header" %>
+		</header>
+
+		<div class="container-fluid text-center wrapper">
+			<%# Content %>
+			<%= yield %>
+		</div>
+
+		<footer class="container-fluid text-center">
+			<%= render "layouts/footer" %>
+		</footer>
+	</body>
+
+	<%# fontawesome %>
+	<script src="https://kit.fontawesome.com/178f84df4b.js" crossorigin="anonymous"></script>
+
 </html>

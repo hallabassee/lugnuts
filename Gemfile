@@ -12,7 +12,7 @@ gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 4.0'
+gem 'webpacker', '~> 5.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -56,13 +56,12 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-# Bootstrap
-gem 'bootstrap', '~> 4.4', '>= 4.4.1'
-
 # User auth
 gem 'devise', '~> 4.7', '>= 4.7.1'
-gem 'rails_admin', '~> 2.0', '>= 2.0.1'
 gem 'cancancan', '~> 3.0', '>= 3.0.2'
+
+# Rails admin
+gem 'rails_admin', '~> 2.0', '>= 2.0.1'
 
 # Pagination
 # https://ddnexus.github.io/pagy/how-to.html
