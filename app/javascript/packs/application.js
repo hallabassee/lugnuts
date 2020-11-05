@@ -21,6 +21,4 @@ require("jquery")
 
 import 'bootstrap'
 
-document.addEventListener("turbolinks:load", () => {
-  $('[data-toggle="tooltip"]').tooltip()
-})
+global.$ = jQuery;

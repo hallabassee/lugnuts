@@ -1,25 +1,27 @@
-<div class="row footer py-3">
+<div class="footer py-3">
+	<div class="container-fluid">
 
-	<%# Logo %>
-	<div class="col-6 border-right img-container center p-3">
+		<div class="row m-0">	
+			<%# Logo %>
+			<div class="col-6 border-right img-container center">
+				<%= image_tag("logo.png", style: 'height:auto;max-width:350px', alt: "Logo") %>
+			</div>
 
-		<%= image_tag("logo.png", style: 'height:auto;max-width:350px', alt: "Logo") %>
+			<%# Address %>
+			<div class="col-6 text-left ">
+				<p class="ml-3">
+					Lugnuts<br>
+					7777 Address<br>
+					City, State, Zip<br>
+					support@lugnuts.com<br>
+				</p>
+				<p class="ml-3">
+					<a href=""><i class="fab fa-facebook pr-1 fa-2x"></i></a>
+					<a href=""><i class="fab fa-youtube fa-2x"></i></a> 
+				</p>		
+				<small class="ml-3">&#169;2020 Lugnuts</small>
+			</div>
 
+		</div>
 	</div>
-
-	<%# Address %>
-	<div class="col-6 text-left p-3">
-		<p class="ml-3">
-      Lugnuts<br>
-      7777 Address<br>
-      City, State, Zip<br>
-      support@lugnuts.com<br>
-    </p>
-    <p class="ml-3">
-      <a href=""><i class="fab fa-facebook pr-1 fa-2x"></i></a>
-      <a href=""><i class="fab fa-youtube fa-2x"></i></a> 
-		</p>
-    <small class="ml-3">&#169;2020 Lugnuts</small>
-	</div>
-
-	</div>
+</div>

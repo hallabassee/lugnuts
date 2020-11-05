@@ -8,7 +8,6 @@ $white: #ffffff;
 html,
 body {
   height: 100%;
-  overflow-x: hidden;
 }
 
 body {
@@ -44,6 +43,7 @@ td {
     background-color: $orange;
 }
 
+.fas,
 .fab {
   color: $orange;
 }
@@ -63,10 +63,6 @@ td {
   margin-bottom: 0;
   border-radius: 0;
 }
-
-.container-fluid {
-    padding: 0px;
- }
 
 h1 {
   font-family: 'Roboto Condensed', Sans-Serif;
@@ -107,6 +103,18 @@ button:focus,
 button:active {
   outline: none !important;
   box-shadow: none !important;
+}
+
+.primary-outline-button.btn.btn-outline-primary {
+  color: $orange;
+  border-color: $orange;
+}
+
+.primary-outline-button.btn.btn-outline-primary:hover,
+.primary-outline-button.btn.btn-outline-primary:active {
+  color: white;
+  background-color: $orange;
+  border-color: $orange;
 }
 
 .primary-button.btn.btn-primary {

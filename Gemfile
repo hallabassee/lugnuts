@@ -80,3 +80,5 @@ gem "aws-sdk-s3", require: false
 # Ruby does not recognize composite primary keys, 
 # so this gem is needed for Payments and Orderdetails tables
 gem 'composite_primary_keys', '~> 12.0', '>= 12.0.2'
+
+gem 'simple_form', '~> 5.0', '>= 5.0.3'

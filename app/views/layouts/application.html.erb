@@ -15,16 +15,16 @@
 	</head>
 
 	<body class="<%= controller_name %> <%= action_name %>">
-		<header>
+		<header class="">
 			<%= render "layouts/header" %>
 		</header>
 
-		<div class="container-fluid text-center wrapper">
+		<div class="">		
 			<%# Content %>
 			<%= yield %>
 		</div>
 
-		<footer class="container-fluid text-center">
+		<footer class="">
 			<%= render "layouts/footer" %>
 		</footer>
 	</body>
