@@ -16,7 +16,7 @@ User.create(
 )
 
 # Add users
-10.times do |j|
+5.times do |j|
 	user = User.new
 	user.username = Faker::Name.unique.first_name
 	user.email = Faker::Internet.unique.email
@@ -31,7 +31,7 @@ end
 # Random number generator
 psuedo_rng = Random.new
 
-25.times do |i|
+5.times do |i|
     # Add 25 blog posts
 	post = Post.new
 	post.title = Faker::Lorem.sentence(word_count: 3, random_words_to_add: 7)
