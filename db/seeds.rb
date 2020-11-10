@@ -6,14 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create(
-	username: "Admin",
-	email: "ruby@example.com",
-	password: "password",
-	password_confirmation: "password",
-	admin: true,
-	member: false
-)
+# User.create!(
+# 	username: "Admin2",
+# 	email: "ruby2@example.com",
+# 	password: "password",
+# 	password_confirmation: "password",
+# 	admin: true,
+# 	member: false
+# )
 
 # Add users
 5.times do |j|
@@ -31,15 +31,25 @@ end
 # Random number generator
 psuedo_rng = Random.new
 
+# Add categories
+5.times do |_m|
+	category = Category.new
+	category.category = Faker::Vehicle.model(make_of_model: 'Toyota')
+	category.save
+end
+
 5.times do |i|
-    # Add 25 blog posts
+    # Add blog posts
 	post = Post.new
 	post.title = Faker::Lorem.sentence(word_count: 3, random_words_to_add: 7)
 	post.body = Faker::Lorem.paragraph_by_chars(number: 1500)
-	post.user = User.first
+	rand_user = User.pluck(:id).sample
+	post.user = User.find(rand_user)
 	post.thumbnail.attach(io: URI.open("https://picsum.photos/1920/1080"), filename: "#{i}_thumbnail.jpg")
 	post.banner.attach(io: URI.open("https://picsum.photos/1920/300"), filename: "#{i}_banner.jpg")
 	post.views = Faker::Number.between(from: 1, to: 5000)
+	rando_category = Category.pluck(:id).sample
+	post.category = Category.find(rando_category)
 	post.save
     # Add comments
 	(2 + psuedo_rng.rand(8)).times do |_j|
