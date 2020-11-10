@@ -24,7 +24,7 @@ User.create(
 	user.password_confirmation = 'password'
 	user.admin = false
 	user.member = true
-	user.avatar.attach(io: URI.open("https://picsum.photos/200/200"), filename: "#{j}_avatar.jpg")
+	user.avatar.attach(io: URI.open("https://picsum.photos/200/100"), filename: "#{j}_avatar.jpg")
 	user.save
 end
 
@@ -43,13 +43,13 @@ psuedo_rng = Random.new
 	post.save
     # Add comments
 	(2 + psuedo_rng.rand(8)).times do |_j|
-		comment = post.comments.build(body: Faker::Lorem.paragraph_by_chars(number: 500),
-			user: User.find(2 + psuedo_rng.rand(10)))
-				comment.save
+		rando_user = User.pluck(:id).sample
+		comment = post.comments.build(body: Faker::Lorem.paragraph_by_chars(number: 500), user: User.find(rando_user))
+		comment.save
     # Add replies to comments
 	psuedo_rng.rand(5).times do |_k|
-		nested_comment = comment.comments.build(body: Faker::Lorem.paragraph_by_chars(number: 500),
-			user: User.find(2 + psuedo_rng.rand(1)),
+		rando_user = User.pluck(:id).sample
+		nested_comment = comment.comments.build(body: Faker::Lorem.paragraph_by_chars(number: 500), user: User.find(rando_user),
 				reply: true)
 		nested_comment.save
 		end
