@@ -16,17 +16,17 @@
 # )
 
 # Add users
-5.times do |j|
-	user = User.new
-	user.username = Faker::Name.unique.first_name
-	user.email = Faker::Internet.unique.email
-	user.password = 'password'
-	user.password_confirmation = 'password'
-	user.admin = false
-	user.member = true
-	user.avatar.attach(io: URI.open("https://picsum.photos/200/100"), filename: "#{j}_avatar.jpg")
-	user.save
-end
+# 5.times do |j|
+# 	user = User.new
+# 	user.username = Faker::Name.unique.first_name
+# 	user.email = Faker::Internet.unique.email
+# 	user.password = 'password'
+# 	user.password_confirmation = 'password'
+# 	user.admin = false
+# 	user.member = true
+# 	user.avatar.attach(io: URI.open("https://picsum.photos/200/100"), filename: "#{j}_avatar.jpg")
+# 	user.save
+# end
 
 # Random number generator
 psuedo_rng = Random.new
@@ -34,7 +34,7 @@ psuedo_rng = Random.new
 # Add categories
 5.times do |_m|
 	category = Category.new
-	category.category = Faker::Vehicle.model(make_of_model: 'Toyota')
+	category.category = Faker::Vehicle.unique.make_and_model
 	category.save
 end
 
