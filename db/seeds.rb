@@ -11,19 +11,21 @@ User.create(
 	email: "ruby@example.com",
 	password: "password",
 	password_confirmation: "password",
-		admin: true,
-		member: false
+	admin: true,
+	member: false
 )
 
-10.times do |_i|
-	User.create!(
-		username: Faker::Name.unique.first_name,
-		email: Faker::Internet.unique.email,
-		password: 'password',
-		password_confirmation: 'password',
-		admin: false,
-		member: true
-	)
+# Add users
+10.times do |j|
+	user = User.new
+	user.username = Faker::Name.unique.first_name
+	user.email = Faker::Internet.unique.email
+	user.password = 'password'
+	user.password_confirmation = 'password'
+	user.admin = false
+	user.member = true
+	user.avatar.attach(io: URI.open("https://picsum.photos/200/200"), filename: "#{j}_avatar.jpg")
+	user.save
 end
 
 # Random number generator
@@ -36,7 +38,7 @@ psuedo_rng = Random.new
 	post.body = Faker::Lorem.paragraph_by_chars(number: 1500)
 	post.user = User.first
 	post.thumbnail.attach(io: URI.open("https://picsum.photos/1920/1080"), filename: "#{i}_thumbnail.jpg")
-	post.banner.attach(io: URI.open("https://picsum.photos/1920/1080"), filename: "#{i}_banner.jpg")
+	post.banner.attach(io: URI.open("https://picsum.photos/1920/300"), filename: "#{i}_banner.jpg")
 	post.views = Faker::Number.between(from: 1, to: 5000)
 	post.save
     # Add comments
