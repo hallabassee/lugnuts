@@ -19,8 +19,8 @@
 
         <% @categories.each do |category| %>
           <li class="nav-item">
-            <%= link_to posts_path(:cat => category.id), class: 'nav-link bg-red text-white p-1 px-2 m-1' do %>
-              <%= category.category %><span class="badge badge-light bg-white ml-2 px-1 mt-1 float-right"><%= category.posts.count %></span>
+            <%= link_to posts_path(:cat => category.id), class: 'nav-link p-1 px-2 m-1' do %>
+              <%= category.category %><span class="badge badge-light bg-red ml-2 px-1 mt-1 float-right text-white"><%= category.posts.count %></span>
             <% end %>
           </li>
         <% end %>
