@@ -23,7 +23,7 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
@@ -81,4 +81,17 @@ gem "aws-sdk-s3", require: false
 # so this gem is needed for Payments and Orderdetails tables
 gem 'composite_primary_keys', '~> 12.0', '>= 12.0.2'
 
+# Simple form creator
 gem 'simple_form', '~> 5.0', '>= 5.0.3'
+
+# Rich text editor for blog creation
+gem 'trix'
+
+# Fake data for seeding database
+gem 'faker', '~> 2.14'
+
+# Pagination
+gem 'will_paginate-bootstrap', '~> 1.0', '>= 1.0.2'
+
+# pretty URLs
+gem 'friendly_id', '~> 5.4', '>= 5.4.1'

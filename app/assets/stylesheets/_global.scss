@@ -1,9 +1,7 @@
-$black: #000000;
 $grey: #333333;
 $red: #c80000;
 $orange: #ff8b00;
 $ltgrey: #f2f2f2;
-$white: #ffffff;
 
 html,
 body {
@@ -11,8 +9,8 @@ body {
 }
 
 body {
-  background-color: $white;
-  color: $black;
+  background-color: white;
+  color: black;
   display: flex;
   flex-direction: column;
 }
@@ -43,6 +41,10 @@ td {
     background-color: $orange;
 }
 
+.bg-red {
+  background-color: $red;
+}
+
 .fas,
 .fab {
   color: $orange;
@@ -51,6 +53,11 @@ td {
 .page-header {
     background-color: $grey;
     text-align: center;
+    align-items: center;
+}
+
+.jumbotron {
+  background-color: $ltgrey;
 }
 
 .footer {
@@ -72,6 +79,20 @@ h1 {
 }
 
 h2 {
+  font-family: 'Roboto Condensed', Sans-Serif;
+  color: $orange;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h3 {
+  font-family: 'Roboto Condensed', Sans-Serif;
+  color: $grey;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h5 {
   font-family: 'Roboto Condensed', Sans-Serif;
   color: $orange;
   font-weight: 400;
@@ -113,8 +134,8 @@ button:active {
 .primary-outline-button.btn.btn-outline-primary:hover,
 .primary-outline-button.btn.btn-outline-primary:active {
   color: white;
-  background-color: $orange;
-  border-color: $orange;
+  background-color: $red;
+  border-color: $red;
 }
 
 .primary-button.btn.btn-primary {
@@ -127,6 +148,19 @@ button:active {
 .primary-button.btn.btn-primary:active {
   color: white;
   background-color: $orange;
+  border-color: $red;
+}
+
+.secondary-button.btn.btn-secondary {
+  color: white;
+  background-color: $red;
+  border-color: $red;
+}
+
+.secondary-button.btn.btn-secondary:hover,
+.secondary-button.btn.btn-secondary:active {
+  color: white;
+  background-color: $red;
   border-color: $red;
 }
 
@@ -146,6 +180,12 @@ button:active {
   align-items: center;
 }
 
+.banner_image {
+  width: 100%;
+  max-height: 300px;
+  overflow-y: hidden;
+}
+
 .thumb {
   margin-top: 15px;
   margin-bottom: 15px;
@@ -155,5 +195,17 @@ label {
   margin: 0 10px;
 }
 
+
+/* Scroll to top */
+.back-to-top {
+  position: fixed;
+  bottom  : 25px;
+  right   : 25px;
+  display : none;
+}
+
+.badge.badge-dark {
+  background-color: $red;
+}
 
 /* end */

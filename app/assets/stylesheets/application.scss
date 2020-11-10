@@ -14,5 +14,9 @@
  */
 
 @import "bootstrap/scss/bootstrap.scss";
-@import 'global';
+@import "trix/dist/trix.css";
+@import "actiontext";
+@import "global";
+@import "pagination";
+@import "posts";
 @import url('https://use.typekit.net/yxg6ngy.css');

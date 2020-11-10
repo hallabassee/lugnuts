@@ -1,0 +1,83 @@
+<div class="row border-bottom">
+
+  <div class="col-2">
+    <%# User Avatar %>
+    <div class="row p-2">
+      <% if comment.user.avatar.attached? %>
+        <%= image_tag(comment.user.avatar, class:'comment-avatar') %>
+      <% else %>
+        <%= image_tag("default_avatar.png", class:'comment-avatar') %>
+      <% end %>
+    </div>
+    <%# Timestamp %>
+    <div class="row">
+      <div class="col">
+        <div class="comment-timestamp" id="edit-history-text-<%= comment.id%>">
+          <%= render 'comments/edit_history_text', comment: comment%>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%# Comments %>
+  <div class="col-10 p-2">
+    <div class="row">
+      <div class="col-8">
+        <div class="">
+          <h3 style="color: grey"><%= comment.user.username%></h3>
+        </div>
+      </div>
+      <%# Edit or Delete comment - Admin or comment owner only %>
+      <% if current_user && (current_user == comment.user || current_user.admin)%>
+        <div class="col-4 text-right" style="padding-right: 0;">
+          <div class="button-group" role="group" aria-label="Edit and Delete Button Group">
+            <%= link_to edit_comment_path(comment), class: "m-2", remote: true do %>
+                <i class="fas fa-edit"></i>
+            <% end %>
+            <%= link_to comment, class: "m-2", method: :delete, remote: true, data: { confirm: 'Are you sure you want to delete this comment?' } do %>
+                <i class="fas fa-trash" style="color: #c80000;"></i>
+            <% end %>
+          </div>
+        </div>
+      <% end %>      
+    </div>
+    <%# Comment body %>
+    <div class="" id="comment-body-<%= comment.id %>">
+      <%= comment.body %>
+    </div>    
+  </div>
+</div>
+
+<%# Reply %>
+<% if comment.comments.count > 0 %>
+<div class="row">
+  <div class="col-1"></div>
+  <div class="col-11">
+    <div class="inner-comment-container" id="reply-<%=comment.id%>">
+      <% comment.comments.each do |comment|%>
+        <%= render comment %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<% end %>
+
+<!-- Comment History Modal-->
+<div class="modal fade" id="edit_history" tabindex="-1" role="dialog" aria-labelledby="Comment Edit History" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="edit_history_title">Edit History</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" id="edit-history-body">
+        <%= render 'comments/edit_history', comment: comment %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary primary-button" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

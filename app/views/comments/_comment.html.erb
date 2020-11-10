@@ -1,0 +1,17 @@
+<div class="comment-container" id="comment-<%= comment.id %>">
+    <div class="container">
+        <%= render 'comments/comments', comment: comment, local: Comment.new %>
+        <% unless comment.reply %>
+        <div class="row py-3">
+            <div class="col">
+            <% if current_user %>
+                <h5 class="">Reply to <%= comment.user.username %> </h5>  
+            <% end %>
+                <div class="">                            
+                    <%= render 'comments/form', commentable: comment, local: Comment.new %>
+                </div>
+            </div>
+        </div>
+        <% end %>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+<%# Banner image %>
+<div class="container-fluid">
+  <div class="row">
+    <%= image_tag(@post.banner, class: "banner_image") %>
+  </div>
+</div>
+<%# Blog Post %>
+<div class="container">
+  <div class="row mt-3">
+    <div class="jumbotron w-100">
+      <h1 class="display-5">
+        <%= link_to @post.title, posts_path %>
+      </h1>
+	  	  <div class="float-right badge badge-dark"><%= @post.category.category %></div>
+      <p class="lead">
+        <%= @post.updated_at.strftime("%B %-d, %Y") %> by <%= @post.user.username %> | <%= pluralize(@post.views, "view") %>
+      </p>
+
+      <hr class="my-3">
+      <div class="post_body">
+        <%= @post.body %>
+      </div>
+    </div>
+  </div>
+</div>
+<%# Comments %>
+<div class="container">
+  <h2>Comments</h2>
+  <hr/>
+  <% if !current_user %>
+    <div class="row">
+      <div class="col-8">
+        <h6 class=""><%= link_to "Login", new_user_session_path %> to comment</h6>
+      </div>
+    </div>
+  <% end %>
+  <%= render 'comments/form', commentable: @post, local: Comment.new %>
+  <div id="comment-pane">
+    <% @comments.each do |comment| %>
+      <%= render comment %>
+    <% end %>
+  </div>
+</div>
