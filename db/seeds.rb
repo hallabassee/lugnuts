@@ -6,14 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create!(
-	username: "Admin",
-	email: "admin@example.com",
-	password: "password",
-	password_confirmation: "password",
-	admin: true,
-	member: false
-)
+# User.create!(
+# 	username: "Admin",
+# 	email: "admin@example.com",
+# 	password: "password",
+# 	password_confirmation: "password",
+# 	admin: true,
+# 	member: false
+# )
 
 # Add users
 5.times do |j|
@@ -32,11 +32,11 @@ end
 psuedo_rng = Random.new
 
 # Add categories
-5.times do |_m|
-	category = Category.new
-	category.category = Faker::Vehicle.unique.make_and_model
-	category.save
-end
+# 5.times do |_m|
+# 	category = Category.new
+# 	category.category = Faker::Vehicle.unique.make_and_model
+# 	category.save
+# end
 
 # Add blog posts
 5.times do |i|
