@@ -4,22 +4,49 @@
       <h1>Parts & Accessories</h1>
       <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit, <br>
         sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      <button type="button" class="btn btn-primary btn-lg px-5 primary-button">Shop</button>
+      <%= link_to products_path, class: 'btn btn-primary btn-lg px-5 primary-button' do %>Shop<% end %>
     </div>
   </div>
 </div>
-<div class="container-fluid text-center py-3 px-5 bg-ltgrey">
+<div class="container-fluid text-center py-5 px-5 bg-ltgrey">
   <blockquote class="blockquote">
-    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-    <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+    <p class="mb-3">I just can't get enough of Lugnuts. I want to get a T-Shirt with Lugnuts on it so I can show it off to everyone. I couldn't have asked for more than this. I would like to personally thank you for your outstanding products.</p>
+    <span class="orange_dot"></span>
+    <footer class="blockquote-footer mt-3">Natalya X from <cite title="Source Title">Austin, TX</cite></footer>
   </blockquote>
 </div>
-<div class="container-fluid text-center py-3">
-  <div class="">Featured Lugnuts Member (Blog Post)</div>
+<%# Featured Blog Post %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6 col-sm-12 p-0">
+      <img class="w-100" 
+				src="<%= url_for @featured_post.thumbnail %>"
+				alt="blog post image card" />
+    </div>
+    <div class="col-md-6 col-sm-12 p-5">
+      <h5 class=""><%= link_to @featured_post.title, @featured_post%></h5>
+      <p class=""><%= @featured_post.body.to_plain_text.truncate_words(100) %></p>
+    </div>
+  </div>
 </div>
-<div class="container-fluid text-center py-3 bg-ltgrey">
-  <div class="">Latest Blog Posts</div>
+<%# Latest Blog Posts %>
+<div class="container-fluid bg-ltgrey">
+  <div class="row p-5">
+    <% @latest_posts.each do |post| %>
+      <div class="col-md-4 col-sm-12 p-4">
+        <img class="w-100" 
+          src="<%= url_for post.thumbnail %>"
+          alt="blog post image card" />
+        <h5 class="pt-3"><%= link_to post.title, post%></h5>
+        <p class=""><%= post.body.to_plain_text.truncate_words(50) %>
+        <i><%= link_to "read more", post%></i>
+        </p>
+      </div>
+    <% end %>
+  </div>
 </div>
+
+<%# Products %>
 <div class="container-fluid text-center py-3">
   <div class="">Newest Product</div>
 </div>

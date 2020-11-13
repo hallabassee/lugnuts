@@ -5,6 +5,7 @@
 <table>
   <thead>
     <tr>
+      <th></th>
       <th>Productname</th>
       <th>Productline</th>
       <th>Productscale</th>
@@ -20,6 +21,15 @@
   <tbody>
     <% @products.each do |product| %>
       <tr>
+        <td>
+          <% if product.image.attached? %>
+            <%= image_tag(product.image, class:'') %>
+          <% else %>
+            <%= image_tag("default_avatar.png", class:'comment-avatar') %>
+          <% end %>
+        
+        
+        </td>
         <td><%= product.productName %></td>
         <td><%= product.productLine %></td>
         <td><%= product.productScale %></td>
