@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_12_032606) do
+ActiveRecord::Schema.define(version: 2020_11_13_020932) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -150,6 +150,13 @@ ActiveRecord::Schema.define(version: 2020_11_12_032606) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
+  create_table "product_image_maps", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.string "productCode"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["productCode"], name: "index_product_image_maps_on_productCode"
+  end
+
   create_table "productlines", primary_key: "productLine", id: :string, limit: 50, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "textDescription", limit: 4000
     t.text "htmlDescription", size: :medium
@@ -195,5 +202,6 @@ ActiveRecord::Schema.define(version: 2020_11_12_032606) do
   add_foreign_key "orders", "customers", column: "customerNumber", primary_key: "customerNumber", name: "orders_ibfk_1"
   add_foreign_key "payments", "customers", column: "customerNumber", primary_key: "customerNumber", name: "payments_ibfk_1"
   add_foreign_key "posts", "users"
+  add_foreign_key "product_image_maps", "products", column: "productCode", primary_key: "productCode"
   add_foreign_key "products", "productlines", column: "productLine", primary_key: "productLine", name: "products_ibfk_1"
 end
