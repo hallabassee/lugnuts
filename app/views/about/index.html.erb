@@ -1,0 +1,66 @@
+<div class="container-fluid page-header py-5 px-5">
+  <div class="row">
+    <div class="col px-5">
+      <h1>Company</h1>
+    </div>
+  </div>
+</div>
+<%# About us %>
+<div class="container-fluid bg-ltgrey">
+    <div class="row">
+        <div class="col-md-6 col-sm-12 p-0">
+            <%= image_tag("profile_pic.jpg", class: "w-100", alt: "About us") %>
+        </div>
+        <div class="col-md-6 col-sm-12 p-5">
+            <h2 class="text-center pb-3">About us</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Viverra ipsum nunc aliquet bibendum enim facilisis gravida neque convallis. Aliquam id diam maecenas ultricies mi eget mauris pharetra. Tempor nec feugiat nisl pretium. Id interdum velit laoreet id donec ultrices. Integer quis auctor elit sed vulputate mi sit amet. Dignissim sodales ut eu sem integer vitae justo eget magna. Urna porttitor rhoncus dolor purus non enim praesent. Duis convallis convallis tellus id interdum velit laoreet id donec. At erat pellentesque adipiscing commodo. Sit amet nisl purus in.</p>
+            <p>Habitant morbi tristique senectus et netus. Adipiscing vitae proin sagittis nisl. Dapibus ultrices in iaculis nunc sed augue lacus viverra. Enim lobortis scelerisque fermentum dui faucibus in ornare. Feugiat in fermentum posuere urna nec. Maecenas pharetra convallis posuere morbi. Ultrices in iaculis nunc sed augue lacus viverra. Mus mauris vitae ultricies leo integer malesuada nunc vel. Massa placerat duis ultricies lacus sed turpis tincidunt. Imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis. Iaculis nunc sed augue lacus viverra vitae congue eu consequat.</p>
+        </div>
+    </div>
+</div>
+<%# Contact form %>
+<div class="container-fluid py-5 px-5">
+    <h2 class="text-center">Contact us</h2>
+    <div class="row">
+        <div class="col-md-6 col-sm-12  px-5 pt-3" >
+            <%= render partial: "form", locals: { contact: @contact }  %>
+        </div>
+         <div class="col-md-6 col-sm-12  p-5">
+            <h3 class="">
+                Lugnuts<br>
+                7777 Address<br>
+                City, State, Zip<br>
+                support@lugnuts.com<br>
+            </h3>
+            <h4 class="mt-4 pl-0">
+                <a href=""><i class="fab fa-facebook pr-1 fa-2x"></i></a>
+                <a href=""><i class="fab fa-youtube fa-2x"></i></a> 
+            <h4>		
+        </div>
+    </div>
+</div>
+<%# Testimonial %>
+<div class="container-fluid text-center py-5 px-5 bg-ltgrey">
+  <blockquote class="blockquote">
+    <p class="mb-3">Feugiat in fermentum posuere urna nec. Maecenas pharetra convallis posuere morbi. Ultrices in iaculis nunc sed augue lacus viverra. Mus mauris vitae ultricies leo integer malesuada nunc vel. Massa placerat duis ultricies lacus sed turpis tincidunt. Imperdiet dui accumsan sit amet nulla facilisi morbi tempus iaculis. Iaculis nunc sed augue lacus viverra vitae congue eu consequat.</p>
+    <span class="orange_dot"></span>
+    <footer class="blockquote-footer mt-3">George T from <cite title="Source Title">Cleveland, OH</cite></footer>
+  </blockquote>
+</div>
+<%# Mailing list %>
+<div class="container-fluid py-5">
+  <div class="row pt-4">
+    <div class="col text-center">
+      <h1>Want to know what we're doing next?</h1>
+    </div>
+  </div>
+    <div class="row p-5">
+        <div class="col-md-6 col-sm-12 px-5 text-right">
+            <h3>Join our mailing list</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+            <div class="col-md-6 col-sm-12 text-left px-5">
+            <%= render partial: "shared/subscriber", locals: { subscriber: @subscriber }  %>
+        </div>
+    </div>
+</div>
