@@ -53,7 +53,25 @@
 <div class="container-fluid text-center py-3 bg-ltgrey">
   <div class="">Featured Products</div>
 </div>
+
 <div class="container-fluid text-center py-3">
-  <div class="">Mailing List</div>
-</div>
+  <div class="row pt-4">
+    <div class="col">
+      <h1>Looking for great deals?</h1>
+    </div>
+  </div>
+  
+  <div class="row p-5">
+
+    <div class="col-6 text-right">
+      <h2>Join our mailing list</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+
+    <div class="col-6 text-left">
+      <%= render partial: "shared/subscriber", locals: { subscriber: @subscriber }  %>
+    </div>
+
+  </div>
+
 </div>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'shared/subscribers'
   resources :categories
 	resources :posts do
 		resources :comments
@@ -21,6 +22,7 @@ Rails.application.routes.draw do
 	resources :employees
 	resources :customers
 	resources :articles
+	resources :subscribers
 	mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 	# For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
