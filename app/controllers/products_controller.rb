@@ -5,6 +5,18 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     @products = Product.all
+    @categories = Product.distinct.pluck(:productLine)
+
+    if params[:categories].present?
+      session[:categories] = params[:categories]
+      @products = Product.where("productLine in (?)", params[:categories]).order('productName').paginate(page: params[:page]) 
+     
+    else
+      session[:categories] = nil
+      @products = Product.all.order('productName').paginate(page: params[:page])
+      
+    end
+
   end
 
   # GET /products/1

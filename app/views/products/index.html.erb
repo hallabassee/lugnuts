@@ -1,51 +1,73 @@
-<p id="notice"><%= notice %></p>
+<%# Page title %>
+<div class="container-fluid page-header py-5 px-5">
+  <div class="row">
+    <div class="col px-5">
+      <h1>Parts & Accessories</h1>
+    </div>
+  </div>
+</div>
+<%# Products %>
+<div class="container">
+  <div class="row py-4">
+    <div class="col-2 p-4 bg-ltgrey my-4">
+      <h5 class="text-dark">Category</h5>
+      
+      <%= form_tag products_path, method: :get do %>
+        <% @categories.each do |category| %>
+          <div> 
+            <%= check_box_tag 'categories[]', category, session[:categories].include?(category), class: 'checkbox' %> <%= category %>
+          </div>
+        <% end %>
+        <%= submit_tag 'Apply', name: :sort %>
+      <% end %>
 
-<h1>Products</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th></th>
-      <th>Productname</th>
-      <th>Productline</th>
-      <th>Productscale</th>
-      <th>Productvendor</th>
-      <th>Productdescription</th>
-      <th>Quantityinstock</th>
-      <th>Buyprice</th>
-      <th>Msrp</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @products.each do |product| %>
-      <tr>
-        <td>
-          <% if product.product_image_map.image.attached? %>
-            <%= image_tag(product.product_image_map.optimized_image(product.product_image_map.image, 200, 200)) %>
-          <% else %>
-            <%= image_tag("default_avatar.png", class:'comment-avatar') %>
+    </div>
+    <div class="col-10">
+      <div class="row">
+        <div class="card-deck">
+          <% @products.each do |product| %>
+            <div class="col-md-3 col-sm-12 p-4">
+              <div class="card p-0 m-0">
+                <% if product.product_image_map.image.attached? %>
+                  <%= link_to(image_tag(product.product_image_map.optimized_image(product.product_image_map.image, 400, 300), alt: product.productName, title: product.productName, class: 'w-100'), product) %>
+                <% else %>
+                  <%= link_to(image_tag("image_coming_soon.png", alt: "Image coming soon", title: "Image coming soon", class: 'w-100'), product) %>
+                <% end %>
+                <div class="card-body">
+                  <div class="row" style="height: 60px; overflow: hidden;">
+                    <div class="col">
+                      <h5><%= link_to product.productName, product, class: "card-title" %></h5>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <h6 class="card-text text-dark">$<%= product.buyPrice %></h6>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col text-right">
+                      <p class="p-1 m-0 btn btn-primary primary-button btn-sm w-100 mt-2"><small><a href="#" title="Add to cart" class="text-white"><i class="fas fa-shopping-cart mr-2" style="color: white;"></i>Add to cart</a></small></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           <% end %>
-        
-        
-        </td>
-        <td><%= product.productName %></td>
-        <td><%= product.productLine %></td>
-        <td><%= product.productScale %></td>
-        <td><%= product.productVendor %></td>
-        <td><%= product.productDescription %></td>
-        <td><%= product.quantityInStock %></td>
-        <td><%= product.buyPrice %></td>
-        <td><%= product.MSRP %></td>
-        <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Product', new_product_path %>
+        </div>
+      </div>
+      <%# Pagination %>
+      <div class="row"></div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col digg_pagination pagination">
+              <% if @products.size > 0 %>
+                <%= will_paginate @products, :container => false %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%# <%= link_to 'New Product', new_product_path %>
