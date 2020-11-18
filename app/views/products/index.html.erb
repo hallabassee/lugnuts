@@ -15,7 +15,7 @@
       <%= form_tag products_path, method: :get do %>
         <% @categories.each do |category| %>
           <div> 
-            <%= check_box_tag 'categories[]', category, session[:categories].include?(category), class: 'checkbox' %> <%= category %>
+            <%= check_box_tag 'categories[]', category, session[:categories].to_s.include?(category), class: 'checkbox' %> <%= category %>
           </div>
         <% end %>
         <%= submit_tag 'Apply', name: :sort %>
