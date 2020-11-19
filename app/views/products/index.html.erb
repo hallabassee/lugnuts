@@ -2,6 +2,11 @@
 
 <h1>Products</h1>
 
+<%= simple_form_for :search, url: products_path, method: "GET", html: { class: 'form-inline' } do |f| %>
+  <%= f.input :name, input_html: {value: ""} %>   
+  <%= f.submit "Search" %>
+<% end %>
+
 <table>
   <thead>
     <tr>

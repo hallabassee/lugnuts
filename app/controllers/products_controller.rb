@@ -5,6 +5,11 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     @products = Product.all
+    @search = params["search"]
+    if @search.present?
+      @name = @search["name"]
+      @products = Product.where("productName LIKE ?", "%#{@name}%")
+    end
   end
 
   # GET /products/1
@@ -69,6 +74,6 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:productName, :productLine, :productScale, :productVendor, :productDescription, :quantityInStock, :buyPrice, :MSRP)
+      params.require(:product).permit(:productName, :productLine, :productScale, :productVendor, :productDescription, :quantityInStock, :buyPrice, :MSRP, :search)
     end
 end

@@ -1,0 +1,33 @@
+<% if notice %>
+    <aside id="notice"><%= notice %></aside>
+<% end %>
+
+<h1>Products & Accessories</h1>
+<%= simple_form_for :search, url: store_index_path, method: "GET", html: { class: 'form-inline' } do |f| %>
+    <%= f.input :name, input_html: {value: ""} %>
+    <%= f.submit "Search", class: "btn btn-primary btn-med px-5 primary-button" %>
+<% end %>
+
+<%# Pagination %>
+<div class="container my-5">
+  <div class="row">
+    <div class="col digg_pagination pagination">
+      <%= will_paginate @products, :container => false %>
+    </div>
+  </div>
+<div>
+<p>
+<% @products.each do |product| %>
+    <div style="border: 1px #f2f2f2; width: 297px; display: inline-block; background-color: #f2f2f2">
+
+    <%= link_to image_tag("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSOaQJSk_reWHVqYz63_75brluE5XLO3HW4jA&usqp=CAU"), product %>
+    <div style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; font-size: 120%">
+    <%= link_to product.productName, product %><br />
+    </div>
+    <%= number_to_currency(product.buyPrice) %>
+    <%= button_to 'Add to Cart', line_items_path(product_id: product) %>
+</p>
+</div>
+<% end %>
+</p>
+</div>
