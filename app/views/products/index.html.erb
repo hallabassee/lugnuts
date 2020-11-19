@@ -9,57 +9,62 @@
 <%# Products %>
 <div class="container">
   <div class="row py-4">
-    <div class="col-2 p-4 bg-ltgrey my-4">
-      <h5 class="text-dark">Category</h5>
-      
-      <%= form_tag products_path, method: :get do %>
-        <% @categories.each do |category| %>
-          <div> 
-            <%= check_box_tag 'categories[]', category, session[:categories].to_s.include?(category), class: 'checkbox' %> <%= category %>
-          </div>
-        <% end %>
-        <%= submit_tag 'Apply', name: :sort %>
-      <% end %>
-
-    </div>
-    <div class="col-10">
-      <div class="row">
-        <div class="card-deck">
-          <% @products.each do |product| %>
-            <div class="col-md-3 col-sm-12 p-4">
-              <div class="card p-0 m-0">
-                <% if product.product_image_map.image.attached? %>
-                  <%= link_to(image_tag(product.product_image_map.optimized_image(product.product_image_map.image, 400, 300), alt: product.productName, title: product.productName, class: 'w-100'), product) %>
-                <% else %>
-                  <%= link_to(image_tag("image_coming_soon.png", alt: "Image coming soon", title: "Image coming soon", class: 'w-100'), product) %>
-                <% end %>
-                <div class="card-body">
-                  <div class="row" style="height: 60px; overflow: hidden;">
-                    <div class="col">
-                      <h5><%= link_to product.productName, product, class: "card-title" %></h5>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      <h6 class="card-text text-dark">$<%= product.buyPrice %></h6>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col text-right">
-                      <p class="p-1 m-0 btn btn-primary primary-button btn-sm w-100 mt-2"><small><a href="#" title="Add to cart" class="text-white"><i class="fas fa-shopping-cart mr-2" style="color: white;"></i>Add to cart</a></small></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+    <div class="col-2 bg-ltgrey my-3">
+      <%# Search %>
+      <%= simple_form_for :search, url: products_path, method: "GET", html: { class: 'mt-4' } do |f| %>
+        <%= f.input :product, input_html: {value: @search.nil? ? '' : @search["product"]}, label: false, required: false, class: "w-100" %>
+        <%= f.submit "Search", class: "btn btn-primary btn-sm w-100 primary-button" %>
+        <h5 class="text-dark mt-3">Category</h5>
+        <div class="mb-4">
+          <% @categories.each do |category| %>
+            <div class="">
+              <%= check_box_tag 'categories[]', category, session[:categories].to_s.include?(category), class: 'checkbox' %> <%= category %>
             </div>
           <% end %>
         </div>
-      </div>
-      <%# Pagination %>
-      <div class="row"></div>
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col digg_pagination pagination">
+      <% end %>
+    </div>
+    <%# Items %>
+    <div class="col-10">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="card-deck">
+              <% @products.each do |product| %>
+                <div class="col-md-3 col-sm-12 p-3">
+                  <div class="card p-0 m-0">
+                    <% if product.product_image_map.image.attached? %>
+                      <%= link_to(image_tag(product.product_image_map.optimized_image(product.product_image_map.image, 400, 300), alt: product.productName, title: product.productName, class: 'w-100'), product) %>
+                    <% else %>
+                      <%= link_to(image_tag("image_coming_soon.png", alt: "Image coming soon", title: "Image coming soon", class: 'w-100'), product) %>
+                    <% end %>
+                    <div class="card-body">
+                      <div class="row" style="height: 60px; overflow: hidden;">
+                        <div class="col">
+                          <h5><%= link_to product.productName, product, class: "card-title" %></h5>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <h6 class="card-text text-dark">$<%= product.buyPrice %></h6>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col text-right">
+                          <p class="p-1 m-0 btn btn-primary primary-button btn-sm w-100 mt-2"><a href="#" title="Add to cart" class="text-white"><i class="fas fa-shopping-cart mr-2" style="color: white;"></i>Add to cart</a></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <%# Pagination %>
+        <div class="row py-4">
+          <div class="col">
+            <div class="digg_pagination pagination">
               <% if @products.size > 0 %>
                 <%= will_paginate @products, :container => false %>
               <% end %>
