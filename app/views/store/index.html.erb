@@ -1,13 +1,19 @@
+<div class="container-fluid page-header py-5 px-5">
+  <div class="row">
+    <div class="col px-5">
+      <h1>Parts & Accessories</h1>
+    </div>
+  </div>
+</div>
 <% if notice %>
     <aside id="notice"><%= notice %></aside>
 <% end %>
-
-<h1>Products & Accessories</h1>
-<%= simple_form_for :search, url: store_index_path, method: "GET", html: { class: 'form-inline' } do |f| %>
-    <%= f.input :name, input_html: {value: ""} %>
+<p>
+  <%= simple_form_for :search, url: store_index_path, method: "GET", html: { class: 'form-inline' } do |f| %>
+    <%= f.input :product, input_html: {value: ""}, required: false %>
     <%= f.submit "Search", class: "btn btn-primary btn-med px-5 primary-button" %>
-<% end %>
-
+  <% end %>
+</p>
 <%# Pagination %>
 <div class="container my-5">
   <div class="row">
@@ -18,14 +24,18 @@
 <div>
 <p>
 <% @products.each do |product| %>
-    <div style="border: 1px #f2f2f2; width: 297px; display: inline-block; background-color: #f2f2f2">
+    <div style="border: 1px #f2f2f2; width: 300px; display: inline-block; background-color: #f2f2f2">
 
-    <%= link_to image_tag("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSOaQJSk_reWHVqYz63_75brluE5XLO3HW4jA&usqp=CAU"), product %>
+    <% if product.product_image_map.image.attached? %>
+      <%= link_to image_tag(product.product_image_map.optimized_image(product.product_image_map.image, 300, 300)), product %>
+    <% else %>
+      <%= link_to image_tag("default_avatar.png", class:'comment-avatar'), product %>
+    <% end %>
     <div style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; font-size: 120%">
     <%= link_to product.productName, product %><br />
     </div>
     <%= number_to_currency(product.buyPrice) %>
-    <%= button_to 'Add to Cart', line_items_path(product_id: product) %>
+    <%= button_to 'Add to Cart', line_items_path(product_id: product), class: 'btn btn-primary btn-sm px-1 primary-button' %>
 </p>
 </div>
 <% end %>

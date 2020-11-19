@@ -1,32 +1,40 @@
 <p id="notice"><%= notice %></p>
 
 
+<table>
+  <tr>
+    <td style="vertical-align:top; padding:20px;">
+      <% if @product.product_image_map.image.attached? %>
+        <%= image_tag(@product.product_image_map.optimized_image(@product.product_image_map.image, 400, 400)) %>
+      <% else %>
+        <%= image_tag("default_avatar.png", class:'comment-avatar') %>
+      <% end %>
+    </td>
+    <td style="vertical-align:top; padding:20px;">
+      <h1><%= @product.productName %></h1>
+      <h2>Purchase Price <%= number_to_currency(@product.buyPrice) %></h2>
+      <%= button_to 'Add to Cart', line_items_path(product_id: @product), class: 'btn btn-primary btn-med px-2 primary-button' %>
+      <p>
+        <h3>Product Details</h3>
+        <%= @product.productDescription %>
+      </p>
+      <p></p>
+      <p>
+        <strong>More Details</strong>
+        <ul>
+          <li><strong>Product Name: <%= @product.productName %></li>
+          <li><strong>Product Line: </strong><%= @product.productLine %></li>
+          <li><strong>Product Scale: </strong><%= @product.productScale %></li>
+          <li><strong>Product Vendor: </strong><%= @product.productVendor %></li>
+          <li><strong>Quantity In Stock: </strong><%= @product.quantityInStock %></li>
+          <li><strong>MSRP: </strong><%= number_to_currency(@product.MSRP) %></li>
+        </ul>
+      </p>
+    </td>
+  </tr>
+</table>
 
-<h1><%= @product.productName %></h1>
-<%= image_tag("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSOaQJSk_reWHVqYz63_75brluE5XLO3HW4jA&usqp=CAU") %>
-<p>
-  <h2>Product Details</h2>
-  <%= @product.productDescription %>
-</p>
 
-<h3>Purchase Price <%= number_to_currency(@product.buyPrice) %></h3>
-
-<%= button_to 'Add to Cart', line_items_path(product_id: @product) %>
-
-<p>
-  <strong>More Details</strong><br />
-  <%= @product.productName %><br />
-  <strong>Productline:</strong><br />
-  <%= @product.productLine %><br />
-  <strong>Productscale:</strong><br />
-  <%= @product.productScale %><br />
-  <strong>Productvendor:</strong><br />
-  <%= @product.productVendor %><br />
-  <strong>Quantityinstock:</strong><br />
-  <%= @product.quantityInStock %><br />
-  <strong>Msrp:</strong><br />
-  <%= number_to_currency(@product.MSRP) %>
-</p>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+<%= link_to 'Back', store_index_path %>

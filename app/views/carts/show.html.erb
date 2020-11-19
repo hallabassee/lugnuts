@@ -5,22 +5,32 @@
 <h2>Your Shopping Cart</h2>
 
 <table>
+    <tr>
+        <td style="vertical-align:top; padding:5px;">Quantity</td>
+        <td style="vertical-align:top; padding:5px;">Product</td>
+        <td style="vertical-align:top; padding:5px;">Price</td>
+        <td style="vertical-align:top; padding:5px;">Action</td>
+    </tr>
     <% @cart.line_items.each do |line_item| %>
         <tr>
-            <td><%= line_item.quantity %></td>
-            <td><%= line_item.product.productName %></td>
-            <td><%= number_to_currency(line_item.total_price) %> <%= link_to 'Remove', line_item, method: :delete, data: { confirm: 'Are you sure you want to remove this item?' } %></td>
+            <td style="vertical-align:top; padding:5px;"><%= line_item.quantity %></td>
+            <td style="vertical-align:top; padding:5px;"><%= line_item.product.productName %></td>
+            <td style="vertical-align:top; padding:5px;"><%= number_to_currency(line_item.total_price) %></td>
+            <td style="vertical-align:top; padding:5px;"><%= link_to 'Remove', line_item, method: :delete, data: { confirm: 'Are you sure you want to remove this item?' } %></td>
         </tr>
     <% end %>
     <tfoot>
         <tr>
             <th colspan="2">Total:</th>
-            <td><%= number_to_currency(@cart.total_price) %></td>
+            <td colspan="2" style="vertical-align:top; padding:5px;"><%= number_to_currency(@cart.total_price) %></td>
         </tr>
     </tfoot>
 </table>
 
 <%= link_to 'Continue Shopping', store_index_path %>
-<%= button_to 'Empty cart', @cart, method: :delete, data: { confirm: 'Are you sure you want to empty the cart?' } %>
+<%= button_to 'Empty cart', @cart, method: :delete, data: { confirm: 'Are you sure you want to empty the cart?' }, class: 'btn btn-primary btn-sm px-2 primary-button' %>
+<%= button_to 'Checkout (currently disabled)', "", class: 'btn btn-primary btn-sm px-2 primary-button', disabled: true %>
+
+
 
 
