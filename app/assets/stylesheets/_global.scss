@@ -12,11 +12,9 @@ body {
   background-color: white;
   color: black;
   display: flex;
+  min-height: 100vh;
   flex-direction: column;
-}
-
-.wrapper {
-  flex-grow: 1;
+  justify-content: space-between
 }
 
 body,

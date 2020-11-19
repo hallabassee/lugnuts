@@ -1,5 +1,5 @@
-<div class="container-fluid page-header py-5 px-5">
-  <div class="row">
+<div class="container-fluid page-header py-4 px-5">
+  <div class="row py-5">
     <div class="col px-5">
       <h1>Parts & Accessories</h1>
       <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit, <br>
@@ -47,13 +47,28 @@
 </div>
 
 <%# Products %>
-<div class="container-fluid text-center py-3">
+<div class="container-fluid text-center py-5">
   <div class="">Newest Product</div>
 </div>
-<div class="container-fluid text-center py-3 bg-ltgrey">
+
+<div class="container-fluid text-center py-5 bg-ltgrey">
   <div class="">Featured Products</div>
 </div>
-<div class="container-fluid text-center py-3">
-  <div class="">Mailing List</div>
-</div>
+
+<%# Mailing list %>
+<div class="container-fluid py-5">
+  <div class="row pt-4">
+    <div class="col text-center">
+      <h1>Looking for great deals?</h1>
+    </div>
+  </div>
+    <div class="row p-5">
+        <div class="col-md-6 col-sm-12 px-5 text-right">
+            <h3>Join our mailing list</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+            <div class="col-md-6 col-sm-12 text-left px-5">
+            <%= render partial: "shared/subscriber", locals: { subscriber: @subscriber }  %>
+        </div>
+    </div>
 </div>
