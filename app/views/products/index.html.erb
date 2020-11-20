@@ -6,26 +6,31 @@
     </div>
   </div>
 </div>
-<%# Products %>
+<%# Content %>
 <div class="container">
   <div class="row py-4">
-    <div class="col-2 bg-ltgrey my-3">
-      <%# Search %>
+    <%# Search %>
+    <div class="col-md-2 col-sm-12 bg-ltgrey my-3">
       <%= simple_form_for :search, url: products_path, method: "GET", html: { class: 'mt-4' } do |f| %>
         <%= f.input :product, input_html: {value: @search.nil? ? '' : @search["product"]}, label: false, required: false, class: "w-100" %>
-        <%= f.submit "Search", class: "btn btn-primary btn-sm w-100 primary-button" %>
-        <h5 class="text-dark mt-3">Category</h5>
-        <div class="mb-4">
-          <% @categories.each do |category| %>
-            <div class="">
-              <%= check_box_tag 'categories[]', category, session[:categories].to_s.include?(category), class: 'checkbox' %> <%= category %>
-            </div>
-          <% end %>
+        <%= f.submit "Search", class: "btn btn-primary btn-sm w-100 primary-button mb-4" %>
+        
+        <%# Categories %>
+        <%# Hidden on small displays %>
+        <div class="d-sm-none d-md-block">
+          <h5 class="text-dark">Category</h5>
+          <div class="mb-4">
+            <% @categories.each do |category| %>
+              <div class="">
+                <%= check_box_tag 'categories[]', category, session[:categories].to_s.include?(category), class: 'checkbox' %> <%= category %>
+              </div>
+            <% end %>
+          </div>
         </div>
       <% end %>
     </div>
     <%# Items %>
-    <div class="col-10">
+    <div class="col-md-10 col-sm-12">
       <div class="container">
         <div class="row">
           <div class="col">

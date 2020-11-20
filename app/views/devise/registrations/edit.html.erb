@@ -12,9 +12,9 @@
             <div class="row">
               <div class="col-sm-6">
                 <% if resource.avatar.attached? %>
-                  <%= image_tag resource.avatar.variant(resize: "200x200!"), class:'comment-avatar'%>
+                  <%= image_tag resource.avatar.variant(resize: "200x200!"), class:'comment-avatar', title: "avatar", alt: "avatar") %>
                 <% else %>
-                  <%= image_tag("default_avatar.png", class:'comment-avatar', height: 200, width:200)%>
+                  <%= image_tag("default_avatar.png", class:'comment-avatar', height: 200, width:200, title: "avatar", alt: "avatar") %>
                 <% end %>
               </div>
               <div class="col-sm-6">

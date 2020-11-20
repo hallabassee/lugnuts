@@ -11,7 +11,10 @@ class ContactsController < ApplicationController
                 format.js { render 'about/post_update', locals: {success: @success} }            
             else
                 @success = false
-                format.js { render 'about/post_update', locals: {success: @success} }
+                if @contact.errors.present?
+                    @errors = @contact.errors
+                end
+                format.js { render 'about/post_update', locals: {success: @success, errors: @errors} }
             end  
         end       
     end

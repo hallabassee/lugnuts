@@ -7,10 +7,17 @@
 		<%= csrf_meta_tags %>
 		<%= csp_meta_tag %>
 
+		<%# Google fonts %>
 		<link href="https://fonts.googleapis.com/css2?family=Cabin&family=Roboto+Condensed&display=swap" rel="stylesheet">
 
+		<%# CSS %>
 		<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+		<%# Javascript %>
 		<%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+		
+		<%# favicon %>
+		<%= favicon_link_tag asset_path('favicon.ico') %>
 
 	</head>
 

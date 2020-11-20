@@ -5,9 +5,9 @@
   <tr>
     <td style="vertical-align:top; padding:20px;">
       <% if @product.product_image_map.image.attached? %>
-        <%= image_tag(@product.product_image_map.optimized_image(@product.product_image_map.image, 400, 400)) %>
+        <%= image_tag(@product.product_image_map.optimized_image(@product.product_image_map.image, 400, 400), title: @product.productName, alt: @product.productName ) %>
       <% else %>
-        <%= image_tag("default_avatar.png", class:'comment-avatar') %>
+        <%= image_tag("image_coming_soon.png", class:'comment-avatar', title: "image coming soon", alt: "image coming soon") %>
       <% end %>
     </td>
     <td style="vertical-align:top; padding:20px;">

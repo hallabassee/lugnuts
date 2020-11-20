@@ -27,9 +27,9 @@
     <div style="border: 1px #f2f2f2; width: 300px; display: inline-block; background-color: #f2f2f2">
 
     <% if product.product_image_map.image.attached? %>
-      <%= link_to image_tag(product.product_image_map.optimized_image(product.product_image_map.image, 300, 300)), product %>
+      <%= link_to image_tag(product.product_image_map.optimized_image(product.product_image_map.image, 300, 300), title: product.productName, alt: product.productName), product %>
     <% else %>
-      <%= link_to image_tag("default_avatar.png", class:'comment-avatar'), product %>
+      <%= link_to image_tag("image_coming_soon.png", class:'comment-avatar', title: "image coming soon", alt: "image_coming_soon"), product %>
     <% end %>
     <div style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden; font-size: 120%">
     <%= link_to product.productName, product %><br />

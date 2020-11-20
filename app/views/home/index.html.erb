@@ -21,11 +21,13 @@
     <div class="col-md-6 col-sm-12 p-0">
       <img class="w-100" 
 				src="<%= url_for @featured_post.thumbnail %>"
-				alt="blog post image card" />
+				alt="blog post image" />
     </div>
     <div class="col-md-6 col-sm-12 p-5">
       <h5 class=""><%= link_to @featured_post.title, @featured_post%></h5>
-      <p class=""><%= @featured_post.body.to_plain_text.truncate_words(100) %></p>
+      <p class=""><%= @featured_post.body.to_plain_text.truncate_words(100) %>
+      <i><%= link_to "read more", @featured_post%></i>
+      </p>
     </div>
   </div>
 </div>
@@ -36,7 +38,7 @@
       <div class="col-md-4 col-sm-12 p-4">
         <img class="w-100" 
           src="<%= url_for post.thumbnail %>"
-          alt="blog post image card" />
+          alt="blog post image" />
         <h5 class="pt-3"><%= link_to post.title, post%></h5>
         <p class=""><%= post.body.to_plain_text.truncate_words(50) %>
         <i><%= link_to "read more", post%></i>

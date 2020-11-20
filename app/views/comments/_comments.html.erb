@@ -4,9 +4,9 @@
     <%# User Avatar %>
     <div class="row p-2">
       <% if comment.user.avatar.attached? %>
-        <%= image_tag(comment.user.avatar, class:'comment-avatar') %>
+        <%= image_tag(comment.user.avatar, class:'comment-avatar', title: "avatar for " + comment.user.username , alt: "avatar for " + comment.user.username) %>
       <% else %>
-        <%= image_tag("default_avatar.png", class:'comment-avatar') %>
+        <%= image_tag("default_avatar.png", class:'comment-avatar', title: "default avatar for " + comment.user.username , alt: "default avatar for " + comment.user.username) %>
       <% end %>
     </div>
     <%# Timestamp %>

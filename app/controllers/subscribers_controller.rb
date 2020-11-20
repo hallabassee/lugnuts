@@ -9,10 +9,13 @@ class SubscribersController < ApplicationController
         respond_to do |format|  
         if @subscriber.save  
             @success = true     
-            format.js { render 'home/index_update', locals: {success: @success}}            
+            format.js { render 'shared/subscriber_update', locals: {success: @success}}            
         else
+            if @subscriber.errors.present?
+                @errors = @subscriber.errors
+            end
             @success = false
-            format.js { render 'home/index_update', locals: {success: @success} }
+            format.js { render 'shared/subscriber_update', locals: {success: @success, errors: @errors}}
         end  
     end
        
