@@ -26,7 +26,7 @@
     <div class="col-md-6 col-sm-12 p-5">
       <h5 class=""><%= link_to @featured_post.title, @featured_post%></h5>
       <p class=""><%= @featured_post.body.to_plain_text.truncate_words(100) %>
-      <i><%= link_to "read more", @featured_post%></i>
+        <i><%= link_to "read more", @featured_post%></i>
       </p>
     </div>
   </div>
@@ -41,22 +41,74 @@
           alt="blog post image" />
         <h5 class="pt-3"><%= link_to post.title, post%></h5>
         <p class=""><%= post.body.to_plain_text.truncate_words(50) %>
-        <i><%= link_to "read more", post%></i>
+          <i><%= link_to "read more", post%></i>
         </p>
       </div>
     <% end %>
   </div>
 </div>
-
-<%# Products %>
-<div class="container-fluid text-center py-5">
-  <div class="">Newest Product</div>
+<%# Featured Product %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6 col-sm-12 p-0">
+      <%= link_to(image_tag(@featured_product.product_image_map.image, alt: @featured_product.productName, title: @featured_product.productName, class: 'w-100'), @featured_product) %>   
+    </div>
+    <div class="col-md-6 col-sm-12 p-5">
+      <h1 class="pb-0 mb-0"><%= @featured_product.productName %></h1>
+      <p><small class="text-dark text-uppercase"><%= @featured_product.productLine %></small></p>
+      <h5 class="text-dark"><%= number_to_currency(@featured_product.buyPrice) %></h5>
+      <p class="mt-4"><%= @featured_product.productDescription %></p>
+      <hr>
+      <div class="row">
+        <div class="col-md-3 col-sm-2 col-12 p-2">
+          <%= select_tag "quantity", options_for_select(1..10), {:class => 'form-control'} %>
+        </div>
+        <div class="col-md-9 col-sm-10 col-12 p-2">
+          <%= button_to 'Add to cart', line_items_path(product_id: @featured_product, qty: 1), class: 'btn btn-primary btn-med px-2 primary-button' %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+<%# Latest Products %>
+<div class="container-fluid bg-ltgrey">
+  <div class="row p-5">
+      
+      <div class="card-deck">
+              <% @latest_products.each do |product| %>
+                <div class="col-md-3 col-sm-12 p-3">
+                  <div class="card p-0 m-0">
+                    <% if product.product_image_map.image.attached? %>
+                      <%= link_to(image_tag(product.product_image_map.optimized_image(product.product_image_map.image, 400, 300), alt: product.productName, title: product.productName, class: 'w-100'), product) %>
+                    <% else %>
+                      <%= link_to(image_tag("image_coming_soon.png", alt: "Image coming soon", title: "Image coming soon", class: 'w-100'), product) %>
+                    <% end %>
+                    <div class="card-body">
+                      <div class="row" style="height: 60px; overflow: hidden;">
+                        <div class="col">
+                          <h5><%= link_to product.productName, product, class: "card-title text-dark" %></h5>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <h6 class="card-text text-dark">$<%= product.buyPrice %></h6>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col text-right">
+                          <%= button_to line_items_path(product_id: product, qty: 1), class: 'btn btn-primary btn-med px-2 primary-button w-100 btn-sm mt-2' do %>
+                            <i class="fas fa-shopping-cart mr-2" style="color: white;"></i> Add to cart
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
 
-<div class="container-fluid text-center py-5 bg-ltgrey">
-  <div class="">Featured Products</div>
+    </div>
 </div>
-
 <%# Mailing list %>
 <div class="container-fluid py-5">
   <div class="row pt-4">
@@ -64,13 +116,13 @@
       <h1>Looking for great deals?</h1>
     </div>
   </div>
-    <div class="row p-5">
-        <div class="col-md-6 col-sm-12 px-5 text-right">
-            <h3>Join our mailing list</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        </div>
-            <div class="col-md-6 col-sm-12 text-left px-5">
-            <%= render partial: "shared/subscriber", locals: { subscriber: @subscriber }  %>
-        </div>
+  <div class="row p-5">
+    <div class="col-md-6 col-sm-12 px-5 text-right">
+      <h3>Join our mailing list</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
     </div>
+    <div class="col-md-6 col-sm-12 text-left px-5">
+      <%= render partial: "shared/subscriber", locals: { subscriber: @subscriber }  %>
+    </div>
+  </div>
 </div>

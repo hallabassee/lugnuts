@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_15_043614) do
+ActiveRecord::Schema.define(version: 2020_11_22_184147) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -193,6 +193,7 @@ ActiveRecord::Schema.define(version: 2020_11_15_043614) do
     t.integer "quantityInStock", limit: 2, null: false
     t.decimal "buyPrice", precision: 10, scale: 2, null: false
     t.decimal "MSRP", precision: 10, scale: 2, null: false
+    t.boolean "featured"
     t.index ["productLine"], name: "productLine"
   end
 
