@@ -56,12 +56,9 @@
           </ul>
         <% end %>
         <div class="nav-item">
-
-        <%# TODO: NEED ACTUAL CART FOR CURRENT USER OR SESSION %>
-        <%= link_to @shopping_cart, class: 'nav-link pl-0' do %>
-          <i class="fas fa-shopping-cart fa-lg mr-5 nav-link pl-0 py-3"></i>
-        <% end %>
-
+          <%= link_to @shopping_cart, class: 'nav-link pl-0' do %>
+            <i class="fas fa-shopping-cart fa-lg mr-5 nav-link pl-0 py-3"></i>
+          <% end %>
       </div>
     </div>
   </div>

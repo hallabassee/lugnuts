@@ -39,9 +39,10 @@ class ApplicationController < ActionController::Base
 
     def add_guest_cart_to_logged_in_user
       if session[:shopping_cart]
-        user_cart = Cart.where("user_id", current_user.id).first
+        user_cart = Cart.where("user_id" => current_user.id).first
         if user_cart
           LineItem.where(:cart_id => session[:shopping_cart]).update_all(cart_id: user_cart.id)
+          Cart.where(:id => session[:shopping_cart]).destroy_all
         else
           guest_cart = Cart.find(session[:shopping_cart])     
           guest_cart.update_column("user_id", current_user.id)
