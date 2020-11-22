@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
 
     def current_shopping_cart
       if current_user
+        self.add_guest_cart_to_logged_in_user
         @shopping_cart = current_user.cart
       else
         if session[:shopping_cart]
@@ -17,6 +18,7 @@ class ApplicationController < ActionController::Base
         end
       end
     end
+
 
     protected
 
@@ -34,4 +36,13 @@ class ApplicationController < ActionController::Base
         redirect_to root_path
       end
     end
+
+    def add_guest_cart_to_logged_in_user
+      if session[:shopping_cart]
+        guest_cart = Cart.find(session[:shopping_cart])        
+        guest_cart.update_column("user_id", current_user.id)
+        session[:shopping_cart] = nil
+      end
+    end
+    
   end
