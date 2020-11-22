@@ -1,40 +1,26 @@
-<p id="notice"><%= notice %></p>
-
-
-<table>
-  <tr>
-    <td style="vertical-align:top; padding:20px;">
+<div class="container">
+  <div class="row py-5">
+    <div class="col-md-6 col-sm-12">
       <% if @product.product_image_map.image.attached? %>
-        <%= image_tag(@product.product_image_map.optimized_image(@product.product_image_map.image, 400, 400), title: @product.productName, alt: @product.productName ) %>
+        <%= image_tag(@product.product_image_map.optimized_image(@product.product_image_map.image, 500, 400), title: @product.productName, alt: @product.productName, class: 'img-fluid' ) %>
       <% else %>
         <%= image_tag("image_coming_soon.png", class:'comment-avatar', title: "image coming soon", alt: "image coming soon") %>
       <% end %>
-    </td>
-    <td style="vertical-align:top; padding:20px;">
-      <h1><%= @product.productName %></h1>
-      <h2>Purchase Price <%= number_to_currency(@product.buyPrice) %></h2>
-      <%= button_to 'Add to Cart', line_items_path(product_id: @product), class: 'btn btn-primary btn-med px-2 primary-button' %>
-      <p>
-        <h3>Product Details</h3>
-        <%= @product.productDescription %>
-      </p>
-      <p></p>
-      <p>
-        <strong>More Details</strong>
-        <ul>
-          <li><strong>Product Name: <%= @product.productName %></li>
-          <li><strong>Product Line: </strong><%= @product.productLine %></li>
-          <li><strong>Product Scale: </strong><%= @product.productScale %></li>
-          <li><strong>Product Vendor: </strong><%= @product.productVendor %></li>
-          <li><strong>Quantity In Stock: </strong><%= @product.quantityInStock %></li>
-          <li><strong>MSRP: </strong><%= number_to_currency(@product.MSRP) %></li>
-        </ul>
-      </p>
-    </td>
-  </tr>
-</table>
-
-
-
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', store_index_path %>
+    </div>
+    <div class="col-md-6 col-sm-12">
+      <h1 class="pb-0 mb-0"><%= @product.productName %></h1>
+      <p><small class="text-dark text-uppercase"><%= @product.productLine %></small></p>
+      <h5 class="text-dark"><%= number_to_currency(@product.buyPrice) %></h5>
+      <p class="mt-4"><%= @product.productDescription %></p>
+      <hr>
+      <div class="row">
+        <div class="col-md-3 col-sm-2 col-12 p-2"> 
+          <%= select_tag "quantity", options_for_select(1..10), {:class => 'form-control'} %>
+        </div>
+        <div class="col-md-9 col-sm-10 col-12 p-2"> 
+          <%= button_to 'Add to cart', line_items_path(product_id: @product, qty: 1), class: 'btn btn-primary btn-med px-2 primary-button' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>

@@ -1,9 +1,11 @@
 class Cart < ApplicationRecord
     has_many :line_items, dependent: :destroy
-    def add_product(product)
+    belongs_to :user, optional: true
+
+    def add_product(product, qty)
         current_item = line_items.find_by(product_id: product.id)
         if current_item
-            current_item.quantity += 1
+            current_item.quantity += qty.to_i
         else
             current_item = line_items.build(product_id: product.id)
         end

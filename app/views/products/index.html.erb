@@ -14,7 +14,6 @@
       <%= simple_form_for :search, url: products_path, method: "GET", html: { class: 'mt-4' } do |f| %>
         <%= f.input :product, input_html: {value: @search.nil? ? '' : @search["product"]}, label: false, required: false, class: "w-100" %>
         <%= f.submit "Search", class: "btn btn-primary btn-sm w-100 primary-button mb-4" %>
-        
         <%# Categories %>
         <%# Hidden on small displays %>
         <div class="d-sm-none d-md-block">
@@ -46,7 +45,7 @@
                     <div class="card-body">
                       <div class="row" style="height: 60px; overflow: hidden;">
                         <div class="col">
-                          <h5><%= link_to product.productName, product, class: "card-title" %></h5>
+                          <h5><%= link_to product.productName, product, class: "card-title text-dark" %></h5>
                         </div>
                       </div>
                       <div class="row">
@@ -56,7 +55,9 @@
                       </div>
                       <div class="row">
                         <div class="col text-right">
-                          <p class="p-1 m-0 btn btn-primary primary-button btn-sm w-100 mt-2"><a href="#" title="Add to cart" class="text-white"><i class="fas fa-shopping-cart mr-2" style="color: white;"></i>Add to cart</a></p>
+                          <%= button_to line_items_path(product_id: product, qty: 1), class: 'btn btn-primary btn-med px-2 primary-button w-100 btn-sm mt-2' do %>
+                            <i class="fas fa-shopping-cart mr-2" style="color: white;"></i> Add to cart
+                          <% end %>
                         </div>
                       </div>
                     </div>

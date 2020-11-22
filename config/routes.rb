@@ -1,18 +1,18 @@
 Rails.application.routes.draw do
   get 'store/index'
   resources :line_items
+  get 'delete_line_items', to: 'line_items#delete_all'
   resources :carts
   get 'shared/subscribers'
   resources :categories
 	resources :posts do
 		resources :comments
 	  end
-	
 	  resources :comments do
 		resources :comments
 	  end
 	
-	  get 'history', to: 'comments#history'
+	get 'history', to: 'comments#history'
 
 	devise_for :users
 	root to: 'home#index'

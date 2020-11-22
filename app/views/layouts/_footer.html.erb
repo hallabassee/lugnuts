@@ -2,13 +2,18 @@
 	<div class="container-fluid">
 
 		<div class="row m-0">	
-			<%# Logo %>
-			<div class="col-6 border-right img-container center">
+			<%# Logo on small screens %>
+			<div class="col-md-6 col-sm-12 d-none d-block d-sm-flex d-md-none img-container center">
+				<%= image_tag("logo.png", style: 'height:auto;max-width:350px', alt: "Logo") %>
+			</div>
+
+			<%# Logo on larger screens %>
+			<div class="col-md-6 col-sm-12 d-none d-md-flex border-right img-container center">
 				<%= image_tag("logo.png", style: 'height:auto;max-width:350px', alt: "Logo") %>
 			</div>
 
 			<%# Address %>
-			<div class="col-6 text-left ">
+			<div class="col-md-6 col-sm-12 text-left ">
 				<p class="ml-3">
 					Lugnuts<br>
 					7777 Address<br>
@@ -19,7 +24,7 @@
 					<a href="https://www.facebook.com/corvette/"><i class="fab fa-facebook pr-1 fa-2x"></i></a>
 					<a href="https://www.youtube.com/user/hightechcorvette"><i class="fab fa-youtube fa-2x"></i></a> 
 				</p>		
-				<small class="ml-3">&#169;2020 Lugnuts</small>
+				<small class="ml-3">&#169;<%= Time.current.year %> Lugnuts</small>
 			</div>
 
 		</div>
