@@ -1,3 +1,4 @@
 class Order < ApplicationRecord
-    has_many :order_details, foreign_key => [:orderNumber, :productCode]
+    self.primary_key = 'orderNumber'
+    has_many :orderdetails, :foreign_key => [:orderNumber, :productCode], dependent: :destroy
 end

@@ -75,7 +75,7 @@ ActiveRecord::Schema.define(version: 2020_11_22_195514) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "customers", primary_key: "customerNumber", id: :integer, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "customers", primary_key: "customerNumber", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "customerName", limit: 50, null: false
     t.string "contactLastName", limit: 50, null: false
     t.string "contactFirstName", limit: 50, null: false
@@ -142,7 +142,7 @@ ActiveRecord::Schema.define(version: 2020_11_22_195514) do
     t.index ["productCode"], name: "productCode"
   end
 
-  create_table "orders", primary_key: "orderNumber", id: :integer, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "orders", primary_key: "orderNumber", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.date "orderDate", null: false
     t.date "requiredDate", null: false
     t.date "shippedDate"
