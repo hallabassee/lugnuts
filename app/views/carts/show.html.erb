@@ -1,33 +1,3 @@
-<% if notice %>
-    <aside id="notice"><%= notice %></aside>
-<% end %>
-
-<h2>Your Shopping Cart</h2>
-
-<table>
-    <tr>
-        <td style="vertical-align:top; padding:5px;">Quantity</td>
-        <td style="vertical-align:top; padding:5px;">Product</td>
-        <td style="vertical-align:top; padding:5px;">Price</td>
-        <td style="vertical-align:top; padding:5px;">Action</td>
-    </tr>
-    <% @cart.line_items.each do |line_item| %>
-        <tr>
-            <td style="vertical-align:top; padding:5px;"><%= line_item.quantity %></td>
-            <td style="vertical-align:top; padding:5px;"><%= line_item.product.productName %></td>
-            <td style="vertical-align:top; padding:5px;"><%= number_to_currency(line_item.total_price) %></td>
-            <td style="vertical-align:top; padding:5px;"><%= link_to 'Remove', line_item, method: :delete, data: { confirm: 'Are you sure you want to remove this item?' } %></td>
-        </tr>
-    <% end %>
-    <tfoot>
-        <tr>
-            <th colspan="2">Total:</th>
-            <td colspan="2" style="vertical-align:top; padding:5px;"><%= number_to_currency(@cart.total_price) %></td>
-        </tr>
-    </tfoot>
-</table>
-
-<%= link_to 'Continue Shopping', store_index_path %>
 <script
     src="https://www.paypal.com/sdk/js?client-id=AZNJyozGSMKh55nOHoLSCDTip_USBQqnlU2j3cguClfbs-jht1d3IcXZuW1QCoHtBn1dTk4x3Oi8z4_w"> // Required. Replace SB_CLIENT_ID with your sandbox client ID.
 </script>
@@ -63,3 +33,73 @@
 
 
 
+<div class="container">
+  <div class="row pt-5 pb-2">
+    <div class="col">
+      <h2>Your Shopping Cart</h2>
+      <table class="table border-bottom">
+        <thead>
+          <tr>
+            <th scope="col" class=""> </td>
+            <th scope="col" class="">Quantity</td>
+            <th scope="col" class="">Product</td>
+            <th scope="col" class="text-right">Item Price</td>
+            <th scope="col" class="text-right">Item Total</td>
+          </tr>
+        </thead>
+        <tbody>
+          <% @cart.line_items.each do |line_item| %>
+            <tr>
+              <td><%= link_to line_item, method: :delete, data: { confirm: 'Are you sure you want to remove this item?' } do %>
+                  <i class="fas fa-times" style="color: #c80000;" title="Remove item from cart"></i><% end %></td>
+              <td><%= line_item.quantity %></td>
+              <td><%= line_item.product.productName %></td>
+              <td class="text-right"><%= number_to_currency(line_item.total_price) %></td>
+              <td class="text-right"><%= number_to_currency(line_item.total_price * line_item.quantity) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row pb-5">
+    <div class="col">
+      <div class="row flex-nowrap">
+        <div class="col-md-8 d-none d-md-block">
+            <% if @shopping_cart.line_items.empty?  %>
+                <p>Your shopping cart is empty. <%= link_to 'Go shopping!', products_path %></p>
+            <% else %>
+                <%= link_to delete_line_items_path, data: { confirm: 'Are you sure you want to empty the cart?' } do %>
+                    <i class="fas fa-trash" style="color: #c80000;" title="Empty cart"></i> Empty cart
+                <% end %>          
+            <% end %>
+        </div>
+        <div class="col-md-2 col-sm-6 text-right bg-ltgrey">Subtotal</div>
+        <div class="col-md-2 col-sm-6 text-right bg-ltgrey px-4"><%= number_to_currency(@cart.total_price) %></div>
+      </div>
+      <div class="row flex-nowrap">
+        <div class="col-md-8 d-none d-md-block"></div>
+        <div class="col-md-2 col-sm-6 text-right bg-ltgrey">Shipping</div>
+        <div class="col-md-2 col-sm-6 text-right bg-ltgrey px-4">Free</div>
+      </div>
+      <div class="row flex-nowrap">
+        <div class="col-md-8 d-none d-md-block"></div>
+        <div class="col-md-2 col-sm-6 text-right bg-ltgrey">Tax</div>
+        <div class="col-md-2 col-sm-6 text-right bg-ltgrey px-4"><%= number_to_currency(0) %></div>
+      </div>
+      <div class="row flex-nowrap py-2">
+        <div class="col-md-8 d-none d-md-block"></div>
+        <div class="col-md-2 col-sm-6 text-right lead">Total</div>
+        <div class="col-md-2 col-sm-6 text-right px-4 lead"><%= number_to_currency(@cart.total_price) %></div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 d-none d-md-block">
+        </div>
+        <div class="col-md-4 col-sm-12 p-0 order-md-12 pt-3">
+          <%= button_to 'Checkout', "", class: 'btn btn-primary primary-button w-100' %>
+        </div>
+        <div class="col-md-4 col-sm-12 order-md-1 text-right my-auto text-center pt-3"><%= link_to 'Continue Shopping', products_path %></div>
+      </div>
+    </div>
+  </div>
+</div>

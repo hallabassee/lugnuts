@@ -95,3 +95,8 @@ gem 'will_paginate-bootstrap', '~> 1.0', '>= 1.0.2'
 
 # pretty URLs
 gem 'friendly_id', '~> 5.4', '>= 5.4.1'
+
+# validate email format
+gem 'email_validator', '~> 2.0', '>= 2.0.1'
+
+gem 'activerecord_where_assoc', '~> 1.0'

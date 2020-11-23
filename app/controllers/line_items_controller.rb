@@ -27,7 +27,8 @@ class LineItemsController < ApplicationController
   # POST /line_items.json
   def create
     product = Product.find(params[:product_id])
-    @line_item = @cart.add_product(product)
+    quantity = params[:qty]
+    @line_item = @shopping_cart.add_product(product, quantity)
 
     respond_to do |format|
       if @line_item.save
@@ -60,6 +61,14 @@ class LineItemsController < ApplicationController
     @line_item.destroy
     respond_to do |format|
       format.html { redirect_to @line_item.cart, notice: 'Item was successfully removed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  def delete_all
+    LineItem.where(cart_id: @shopping_cart).delete_all
+    respond_to do |format|
+      format.html { redirect_to cart_path(@shopping_cart), notice: 'Items were successfully removed.' }
       format.json { head :no_content }
     end
   end

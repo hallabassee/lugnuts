@@ -6,20 +6,29 @@ class ProductsController < ApplicationController
   def index
     @products = Product.all
     @search = params["search"]
-    if @search.present?
-      @name = @search["name"]
-      @products = Product.where("productName LIKE ?", "%#{@name}%")
-    end
+    @filter = params[:categories]
     @categories = Product.distinct.pluck(:productLine)
 
-    if params[:categories].present?
-      session[:categories] = params[:categories]
-      @products = Product.where("productLine in (?)", params[:categories]).order('productName').paginate(page: params[:page]) 
-     
+    if @search.present? || @filter.present?
+      if @search.present? && @filter.present?   
+        # Search and filter 
+        @name = @search["product"]
+        session[:categories] = @filter
+        @products = Product.where("productLine in (?)", @filter).where("productName LIKE ? or productCode LIKE ?", "%#{@name}%", "%#{@name}%").order('productName').paginate(page: params[:page])      
+      elsif @search.present?
+        # Search only        
+        @name = @search["product"]
+        session[:categories] = @filter
+        @products = Product.where("productName LIKE ? or productCode LIKE ?", "%#{@name}%", "%#{@name}%").order('productName').paginate(page: params[:page])  
+      else
+        # Filter only
+        session[:categories] = @filter
+        @products = Product.where("productLine in (?)", @filter).order('productName').paginate(page: params[:page])   
+      end
     else
+      # all products
       session[:categories] = nil
-      @products = Product.all.order('productName').paginate(page: params[:page])
-      
+      @products = Product.all.order('productName').paginate(page: params[:page])  
     end
 
   end
@@ -27,6 +36,7 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    @line_item = LineItem.new
   end
 
   # GET /products/new

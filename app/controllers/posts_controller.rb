@@ -6,7 +6,8 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   def index
-    @categories = Category.all.order('category')
+    @categories = Category.where_assoc_exists(:posts).order('category')
+  
     if params[:cat].present?
       @posts = Post.where(:category_id => params[:cat]).order('created_at DESC').paginate(page: params[:page]) 
     else

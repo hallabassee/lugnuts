@@ -1,5 +1,5 @@
 <% if @success == true %>
-    $("#message").html("<div class='alert alert-success' role='alert'><p>Thank you for contacting us!</p></div>");
+    $("#contact_message").html("<div class='alert alert-success' role='alert'>Thank you for contacting us!</div>");
 <% else %>
-    $("#message").html("<div class='alert alert-danger' role='alert'><p>Oops, something went wrong.</p></div>");
+    $("#contact_message").html("<div class='alert alert-danger' role='alert'>Oops, something went wrong.<% @errors.full_messages.each do |error| %><li><%= error %></li><% end %></div>");
 <% end %>

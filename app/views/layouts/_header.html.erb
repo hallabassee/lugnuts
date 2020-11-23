@@ -1,7 +1,7 @@
 <div class="bg-ltgrey pr-4 py-1">
   <p class="text-right my-1">
-    <a href=""><i class="fab fa-facebook pr-1" style="color:#333333"></i></a>
-    <a href=""><i class="fab fa-youtube pr-3" style="color:#333333"></i></a>
+    <a href="https://www.facebook.com/corvette/"><i class="fab fa-facebook pr-1" style="color:#333333"></i></a>
+    <a href="https://www.youtube.com/user/hightechcorvette"><i class="fab fa-youtube pr-3" style="color:#333333"></i></a>
     440-444-4444
   </p>
 </div>
@@ -56,8 +56,10 @@
           </ul>
         <% end %>
         <div class="nav-item">
-        <div><a href="#"><i class="fas fa-shopping-cart fa-lg mr-5 nav-link pl-0 py-3"></i></a></div>
-        </div>
+          <%= link_to @shopping_cart, class: 'nav-link pl-0' do %>
+            <i class="fas fa-shopping-cart fa-lg mr-5 nav-link pl-0 py-3"></i>
+          <% end %>
+      </div>
     </div>
   </div>
 </nav>
