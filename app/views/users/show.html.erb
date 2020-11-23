@@ -1,0 +1,35 @@
+<div class="container my-5">
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-md-8 col-sm-12">
+      <%# Title %>
+      <div class="row">
+        <div class="col-12">
+          <h2>Profile</h2>
+        </div>
+      </div>
+      <%# Info %>
+      <div class="row">
+        <div class="col-md-6 col-sm-12 order-sm-12">
+          <div class="row p-2">
+            <div class="col-4">Username:</div>
+            <div class="col-8"><strong><%= @user.username %></strong></div>
+          </div>
+          <div class="row p-2">
+            <div class="col-4">Email:</strong></div>
+          <div class="col-8"><strong><%= @user.email %></strong></div>
+        </div>
+      </div>
+      <%# Avatar %>
+      <div class="col-md-6 col-sm-12 order-sm-1 text-center">
+        <% if @user.avatar.attached? %>
+          <%= image_tag(@user.avatar.variant(resize: "200x200!"), class:'comment-avatar', title: "avatar", alt: "avatar") %>
+        <% else %>
+          <%= image_tag("default_avatar.png", class:'comment-avatar', height: 200, width: 200, title: "avatar", alt: "avatar") %>
+        <% end %>
+        <%= link_to 'Edit Profile', edit_user_registration_path, class: 'btn btn-primary btn-med px-2 primary-button w-100' %>
+      </div>
+    </div>
+  </div>
+      <div class="col-2"></div>
+</div>

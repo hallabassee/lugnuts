@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'store/index'
+  get 'users/show'
   resources :line_items
   get 'delete_line_items', to: 'line_items#delete_all'
   resources :carts
