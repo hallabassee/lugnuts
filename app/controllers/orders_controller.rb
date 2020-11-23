@@ -1,4 +1,7 @@
 class OrdersController < ApplicationController
+  include CurrentCart
+  before_action :set_cart, only: [:new, :create]
+  before_action :ensure_cart_isnt_empty, only: :new  
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   # GET /orders
@@ -25,9 +28,24 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
+    @@no_of_lines = 0
 
     respond_to do |format|
       if @order.save
+        @cart.line_items.each do |line_item|
+          @@no_of_lines += 1
+          @order.orderdetails.insert(
+            orderNumber: @order.orderNumber,
+            quantityOrdered: line_item.quantity,
+            productCode: line_item.product_id,  
+            priceEach: line_item.each_price,
+            orderLineNumber: @@no_of_lines
+          )
+        end
+        Cart.destroy(session[:cart_id])
+        session[:cart_id] = nil
+        format.html { redirect_to products_path, notice:
+          'Thank you for your order.' }
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
@@ -70,5 +88,12 @@ class OrdersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def order_params
       params.require(:order).permit(:orderDate, :requiredDate, :shippedDate, :status, :comments, :customerNumber)
+    end
+
+  private
+    def ensure_cart_isnt_empty
+      if @cart.line_items.empty?
+        redirect_to products_url, notice: 'Your cart is empty'
+      end
     end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_15_043614) do
+ActiveRecord::Schema.define(version: 2020_11_22_071348) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 2020_11_15_043614) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "customers", primary_key: "customerNumber", id: :integer, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "customers", primary_key: "customerNumber", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "customerName", limit: 50, null: false
     t.string "contactLastName", limit: 50, null: false
     t.string "contactFirstName", limit: 50, null: false
@@ -155,7 +155,7 @@ ActiveRecord::Schema.define(version: 2020_11_15_043614) do
     t.index ["productCode"], name: "productCode"
   end
 
-  create_table "orders", primary_key: "orderNumber", id: :integer, default: nil, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+  create_table "orders", primary_key: "orderNumber", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.date "orderDate", null: false
     t.date "requiredDate", null: false
     t.date "shippedDate"
