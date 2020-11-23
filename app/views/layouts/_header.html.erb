@@ -44,7 +44,7 @@
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="<%= users_show_path %>">Profile</a>
-                <a class="dropdown-item" href="#">Orders</a>
+                <a class="dropdown-item" href="<%= orders_path %>">Orders</a>
                 <% if current_user.admin %>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="<%= new_post_path %>">New Post</a>
