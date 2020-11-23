@@ -100,3 +100,5 @@ gem 'friendly_id', '~> 5.4', '>= 5.4.1'
 gem 'email_validator', '~> 2.0', '>= 2.0.1'
 
 gem 'activerecord_where_assoc', '~> 1.0'
+
+gem 'paypal-checkout-sdk', '~> 1.0', '>= 1.0.3'

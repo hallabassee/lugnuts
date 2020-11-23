@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   get 'store/index'
   get 'users/show'
+  post 'create_order', :to => 'orders#create_order'
+  post 'capture_order', :to => 'orders#capture_order'
   resources :line_items
   get 'delete_line_items', to: 'line_items#delete_all'
   resources :carts

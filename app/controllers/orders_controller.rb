@@ -1,5 +1,8 @@
 class OrdersController < ApplicationController
-  include CurrentCart
+  # include CurrentCart
+  skip_before_action :verify_authenticity_token
+  before_action :paypal_init, :only => [:create_order, :capture_order]
+
   before_action :set_cart, only: [:new, :create]
   before_action :ensure_cart_isnt_empty, only: :new  
   before_action :set_order, only: [:show, :edit, :update, :destroy]
@@ -44,6 +47,7 @@ class OrdersController < ApplicationController
         end
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
+
         format.html { redirect_to products_path, notice:
           'Thank you for your order.' }
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
@@ -79,6 +83,71 @@ class OrdersController < ApplicationController
     end
   end
 
+  # paypal
+  def create_order
+    price = 100.90
+    request = PayPalCheckoutSdk::Orders::OrdersCreateRequest::new
+    request.request_body({
+      :intent => 'CAPTURE',
+      :purchase_units => [
+        {
+          :amount => {
+            :currency_code => 'USD',
+            :value => price
+          }
+        }
+      ]
+    })
+    begin
+      response = @client.execute request
+
+      # create customer record
+      customer = Customer.new
+      customer.customerName = current_user.username
+      customer.contactLastName = Faker::Name.first_name
+      customer.contactFirstName = Faker::Name.last_name
+      customer.phone = Faker::PhoneNumber.cell_phone
+      customer.addressLine1 = Faker::Address.street_address
+      customer.city = Faker::Address.city
+      customer.country = Faker::Address.country
+      customer.save
+
+      # create order record
+      order = Order.new
+      order.token = response.result.id
+      order.orderDate = Date.today
+      order.requiredDate = Date.today + 10.days
+      order.status = 'In Process'
+      order.comments = 'Online order'
+      order.customerNumber = customer.customerNumber
+
+      if order.save
+        return render :json => {:token => response.result.id}, :status => :ok
+      end
+
+    rescue PayPalHttp::HttpError => ioe
+      # HANDLE THE ERROR
+    end  
+  end
+
+  def capture_order
+      request = PayPalCheckoutSdk::Orders::OrdersCaptureRequest::new params[:order_id]
+    begin
+      response = @client.execute request
+      order = Order.find_by :token => params[:order_id]
+      order.paid = response.result.status == 'COMPLETED'
+
+      # ADD ORDER DETAIL RECORDS
+
+      if order.save
+        return render :json => {:status => response.result.status}, :status => :ok
+      end
+    rescue PayPalHttp::HttpError => ioe
+      # HANDLE THE ERROR
+    end
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
@@ -87,7 +156,7 @@ class OrdersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def order_params
-      params.require(:order).permit(:orderDate, :requiredDate, :shippedDate, :status, :comments, :customerNumber)
+      params.require(:order).permit(:orderDate, :requiredDate, :shippedDate, :status, :comments, :customerNumber, :paid, :token )
     end
 
   private
@@ -96,4 +165,12 @@ class OrdersController < ApplicationController
         redirect_to products_url, notice: 'Your cart is empty'
       end
     end
+
+    def paypal_init
+      client_id = 'ATnl6_yOGNWRfY40cWNC_Yx9xTGM2vR8SOJTvWh19zGupWID4DG9BiGg-e8vOoJ3CTiLnAMm-OM-7g4s'
+      client_secret = 'EIC2FLDYk2zgFGA87Lv32iwW8Bzq8kSTl5oOJ6d70Tz2IMRRIa_cR7zB8OoGUAyJHbpwxJKKuYw9MPRu'
+      environment = PayPal::SandboxEnvironment.new client_id, client_secret
+      @client = PayPal::PayPalHttpClient.new environment
+    end
+  
 end
