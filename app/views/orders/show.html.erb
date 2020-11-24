@@ -1,34 +1,89 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Orderdate:</strong>
-  <%= @order.orderDate %>
-</p>
-
-<p>
-  <strong>Requireddate:</strong>
-  <%= @order.requiredDate %>
-</p>
-
-<p>
-  <strong>Shippeddate:</strong>
-  <%= @order.shippedDate %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @order.status %>
-</p>
-
-<p>
-  <strong>Comments:</strong>
-  <%= @order.comments %>
-</p>
-
-<p>
-  <strong>Customernumber:</strong>
-  <%= @order.customerNumber %>
-</p>
-
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+<div class="container my-5">
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-md-8 col-sm-12">
+      <%# Title %>
+      <div class="row">
+        <div class="col-12">
+          <h2>Order #<%= @order.orderNumber %></h2>
+          <div class="row">
+            <div class="col-md-4 col-sm-12">
+              <strong>Order Date:</strong>
+              <%= @order.orderDate %>
+            </div>
+            <div class="col-md-4 col-sm-12">
+              <strong>Status:</strong>
+              <%= @order.status %>
+            </div>
+            <div class="col-md-4 col-sm-12">
+              <strong>Date Shipped:</strong>
+              <%= @order.shippedDate %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-12">
+          <h4>Items</h4>
+          <table class="table border-bottom">
+            <thead>
+              <tr>
+                <th scope="col" class="">Quantity</td>
+                <th scope="col" class="">Product Code</td>
+                <th scope="col" class="">Product Name</td>
+                <th scope="col" class="text-right">Item Price</td>
+                <th scope="col" class="text-right">Item Total</td>
+              </tr>
+            </thead>
+            <tbody>
+              <% @order_details.each do |line_item| %>
+                <tr>
+                  <td><%= line_item.quantityOrdered %></td>
+                  <td><%= line_item.productCode %></td>
+                  <td><%= line_item.product.productName %></td>
+                  <td class="text-right"><%= number_to_currency(line_item.priceEach) %></td>
+                  <td class="text-right"><%= number_to_currency(line_item.priceEach * line_item.quantityOrdered) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row pb-5">
+        <div class="col">
+          <div class="row flex-nowrap">
+            <div class="col-md-8 d-none d-md-block">
+            </div>
+            <div class="col-md-2 col-sm-6 text-right bg-ltgrey">Subtotal</div>
+            <div class="col-md-2 col-sm-6 text-right bg-ltgrey px-4"><%= number_to_currency(@total_price) %></div>
+          </div>
+          <div class="row flex-nowrap">
+            <div class="col-md-8 d-none d-md-block"></div>
+            <div class="col-md-2 col-sm-6 text-right bg-ltgrey">Shipping</div>
+            <div class="col-md-2 col-sm-6 text-right bg-ltgrey px-4">Free</div>
+          </div>
+          <div class="row flex-nowrap">
+            <div class="col-md-8 d-none d-md-block"></div>
+            <div class="col-md-2 col-sm-6 text-right bg-ltgrey">Tax</div>
+            <div class="col-md-2 col-sm-6 text-right bg-ltgrey px-4"><%= number_to_currency(0) %></div>
+          </div>
+          <div class="row flex-nowrap py-2">
+            <div class="col-md-8 d-none d-md-block"></div>
+            <div class="col-md-2 col-sm-6 text-right lead">Total</div>
+            <div class="col-md-2 col-sm-6 text-right px-4 lead"><%= number_to_currency(@total_price) %></div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 d-none d-md-block">            
+               <%= link_to 'Back to your orders', orders_path %>
+            </div>
+            <div class="col-md-4 col-sm-12 p-0 order-md-12 pt-3">
+            </div>
+            <div class="col-md-4 col-sm-12 order-md-1 text-right text-center pt-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-2"></div>
+</div>
+</div>

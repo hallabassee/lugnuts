@@ -5,9 +5,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :comments, dependent: :destroy
   has_one :cart
+  has_many :customers
+  has_many :orders, through: :customers
   has_one_attached :avatar
   validates :username, presence: :true, uniqueness: { case_sensitive: false }
   validate :validate_username
+
 
   attr_writer :login
 

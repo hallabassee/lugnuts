@@ -7,12 +7,14 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders = current_user.orders.order('orderNumber DESC')
   end
 
   # GET /orders/1
   # GET /orders/1.json
   def show
+    @order_details = Orderdetail.where("orderNumber" => params[:id])
+    @total_price = @order_details.to_a.sum { |item| item.priceEach }
   end
 
   def payment_successful
