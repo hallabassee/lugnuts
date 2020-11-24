@@ -1,8 +1,9 @@
 class OrdersController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_action :authenticate_user!
+  before_action :ensure_cart_isnt_empty, only: :new
   before_action :paypal_init, :only => [:create_order, :capture_order]
-  before_action :ensure_cart_isnt_empty, only: :new  
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+
 
   # GET /orders
   # GET /orders.json
@@ -13,6 +14,7 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
+    @order = Order.find(params[:id])
     @order_details = Orderdetail.where("orderNumber" => params[:id])
     @total_price = @order_details.to_a.sum { |item| item.priceEach }
   end
@@ -165,11 +167,6 @@ class OrdersController < ApplicationController
 
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_order
-      @order = Order.find(params[:id])
-    end
-
     # Only allow a list of trusted parameters through.
     def order_params
       params.require(:order).permit(:orderDate, :requiredDate, :shippedDate, :status, :comments, :customerNumber, :paid, :token )
