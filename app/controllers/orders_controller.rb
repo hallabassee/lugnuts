@@ -7,7 +7,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = current_user.orders.order('orderNumber DESC')
+    @orders = current_user.orders.where("paid" => true).order('orderNumber DESC')
   end
 
   # GET /orders/1
