@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_23_033420) do
+ActiveRecord::Schema.define(version: 2020_11_23_202230) do
 
   create_table "action_text_rich_texts", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name", null: false
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 2020_11_23_033420) do
     t.string "country", limit: 50, null: false
     t.integer "salesRepEmployeeNumber"
     t.decimal "creditLimit", precision: 10, scale: 2
+    t.integer "user_id"
     t.index ["salesRepEmployeeNumber"], name: "salesRepEmployeeNumber"
   end
 

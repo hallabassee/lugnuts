@@ -1,9 +1,6 @@
 class OrdersController < ApplicationController
-  # include CurrentCart
   skip_before_action :verify_authenticity_token
   before_action :paypal_init, :only => [:create_order, :capture_order]
-
-  before_action :set_cart, only: [:new, :create]
   before_action :ensure_cart_isnt_empty, only: :new  
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
@@ -16,6 +13,12 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
+  end
+
+  def payment_successful
+    @shopping_cart.destroy
+    session[:shopping_cart] = nil    
+    current_shopping_cart
   end
 
   # GET /orders/new
@@ -31,25 +34,8 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
-    @@no_of_lines = 0
-
     respond_to do |format|
       if @order.save
-        @cart.line_items.each do |line_item|
-          @@no_of_lines += 1
-          @order.orderdetails.insert(
-            orderNumber: @order.orderNumber,
-            quantityOrdered: line_item.quantity,
-            productCode: line_item.product_id,  
-            priceEach: line_item.each_price,
-            orderLineNumber: @@no_of_lines
-          )
-        end
-        Cart.destroy(session[:cart_id])
-        session[:cart_id] = nil
-
-        format.html { redirect_to products_path, notice:
-          'Thank you for your order.' }
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
         format.json { render :show, status: :created, location: @order }
       else
@@ -85,7 +71,7 @@ class OrdersController < ApplicationController
 
   # paypal
   def create_order
-    price = 100.90
+    price = @shopping_cart.total_price
     request = PayPalCheckoutSdk::Orders::OrdersCreateRequest::new
     request.request_body({
       :intent => 'CAPTURE',
@@ -102,15 +88,29 @@ class OrdersController < ApplicationController
       response = @client.execute request
 
       # create customer record
-      customer = Customer.new
-      customer.customerName = current_user.username
-      customer.contactLastName = Faker::Name.first_name
-      customer.contactFirstName = Faker::Name.last_name
-      customer.phone = Faker::PhoneNumber.cell_phone
-      customer.addressLine1 = Faker::Address.street_address
-      customer.city = Faker::Address.city
-      customer.country = Faker::Address.country
-      customer.save
+      if current_user
+        existing_customer = Customer.where("user_id" => current_user.id).first
+        if !existing_customer
+          # If user logged in and not a customer, create a new customer record
+          customer = Customer.new
+          customer.customerName = current_user.username
+          customer.contactLastName = 'online order'
+          customer.contactFirstName = 'online order'
+          customer.phone = 'online order'
+          customer.addressLine1 = 'online order'
+          customer.city = 'online order'
+          customer.country = 'online order'
+          customer.user_id = current_user.id
+          customer.save
+
+          @customer_number = customer.customerNumber
+        else # Customer already exists
+          @customer_number = existing_customer.customerNumber
+        end
+      else # Guest
+          customer = Customer.where(:customerName => "Online Guest").first
+          @customer_number = customer.customerNumber
+      end   
 
       # create order record
       order = Order.new
@@ -119,14 +119,17 @@ class OrdersController < ApplicationController
       order.requiredDate = Date.today + 10.days
       order.status = 'In Process'
       order.comments = 'Online order'
-      order.customerNumber = customer.customerNumber
+      order.customerNumber = @customer_number
 
       if order.save
         return render :json => {:token => response.result.id}, :status => :ok
       end
 
     rescue PayPalHttp::HttpError => ioe
-      # HANDLE THE ERROR
+      # Cleanup order record
+      if order
+        order.destroy
+      end
     end  
   end
 
@@ -134,16 +137,27 @@ class OrdersController < ApplicationController
       request = PayPalCheckoutSdk::Orders::OrdersCaptureRequest::new params[:order_id]
     begin
       response = @client.execute request
+      # SET ORDER TO PAID
       order = Order.find_by :token => params[:order_id]
       order.paid = response.result.status == 'COMPLETED'
-
       # ADD ORDER DETAIL RECORDS
-
-      if order.save
-        return render :json => {:status => response.result.status}, :status => :ok
+      @@no_of_lines = 0
+      @shopping_cart.line_items.each do |line_item|
+        @@no_of_lines += 1
+        order.orderdetails.insert(
+          orderNumber: order.orderNumber,
+          quantityOrdered: line_item.quantity,
+          productCode: line_item.product_id,  
+          priceEach: line_item.each_price,
+          orderLineNumber: @@no_of_lines
+        )
       end
+        if order.save
+          return render :json => {:status => response.result.status}, :status => :ok
+        end
     rescue PayPalHttp::HttpError => ioe
-      # HANDLE THE ERROR
+      # Cleanup order
+      order.destroy
     end
   end
 

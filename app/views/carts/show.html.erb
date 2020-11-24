@@ -1,31 +1,3 @@
-<script src="https://www.paypal.com/sdk/js?client-id=ATnl6_yOGNWRfY40cWNC_Yx9xTGM2vR8SOJTvWh19zGupWID4DG9BiGg-e8vOoJ3CTiLnAMm-OM-7g4s">
-</script>
-
-<script>
-  paypal.Buttons({
-    env: 'sandbox', // Valid values are sandbox and live.
-    createOrder: async () => {
-      const response = await fetch('/create_order', {method: 'POST'});
-      const responseData = await response.json();
-      return responseData.token;
-      },
-    onApprove: async (data) => {
-        const response = await fetch('/capture_order', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({order_id: data.orderID})
-    });
-    const responseData = await response.json();
-    if (responseData.status === 'COMPLETED') {
-      alert('COMPLETED');
-      // REDIRECT TO SUCCESS PAGE
-      }
-    }
-  }).render('#paypal-button-container');
-</script>
-
 <div class="container">
   <div class="row pt-5 pb-2">
     <div class="col">
@@ -41,7 +13,7 @@
           </tr>
         </thead>
         <tbody>
-          <% @cart.line_items.each do |line_item| %>
+          <% @shopping_cart.line_items.each do |line_item| %>
             <tr>
               <td><%= link_to line_item, method: :delete, data: { confirm: 'Are you sure you want to remove this item?' } do %>
                   <i class="fas fa-times" style="color: #c80000;" title="Remove item from cart"></i><% end %></td>
@@ -66,9 +38,10 @@
               <i class="fas fa-trash" style="color: #c80000;" title="Empty cart"></i> Empty cart
             <% end %>
           <% end %>
+          <div class="float-right"><%= link_to 'Continue Shopping', products_path %></div>
         </div>
         <div class="col-md-2 col-sm-6 text-right bg-ltgrey">Subtotal</div>
-        <div class="col-md-2 col-sm-6 text-right bg-ltgrey px-4"><%= number_to_currency(@cart.total_price) %></div>
+        <div class="col-md-2 col-sm-6 text-right bg-ltgrey px-4"><%= number_to_currency(@shopping_cart.total_price) %></div>
       </div>
       <div class="row flex-nowrap">
         <div class="col-md-8 d-none d-md-block"></div>
@@ -83,7 +56,7 @@
       <div class="row flex-nowrap py-2">
         <div class="col-md-8 d-none d-md-block"></div>
         <div class="col-md-2 col-sm-6 text-right lead">Total</div>
-        <div class="col-md-2 col-sm-6 text-right px-4 lead"><%= number_to_currency(@cart.total_price) %></div>
+        <div class="col-md-2 col-sm-6 text-right px-4 lead"><%= number_to_currency(@shopping_cart.total_price) %></div>
       </div>
       <div class="row">
         <div class="col-md-4 d-none d-md-block">
@@ -91,8 +64,38 @@
         <div class="col-md-4 col-sm-12 p-0 order-md-12 pt-3">
           <div id="paypal-button-container"></div>
         </div>
-        <div class="col-md-4 col-sm-12 order-md-1 text-right my-auto text-center pt-3"><%= link_to 'Continue Shopping', products_path %></div>
+        <div class="col-md-4 col-sm-12 order-md-1 text-right text-center pt-3"></div>
       </div>
     </div>
   </div>
 </div>
+
+	<%# PayPal %>
+	<script src="https://www.paypal.com/sdk/js?client-id=ATnl6_yOGNWRfY40cWNC_Yx9xTGM2vR8SOJTvWh19zGupWID4DG9BiGg-e8vOoJ3CTiLnAMm-OM-7g4s"></script>
+<script>
+
+$(document).on('turbolinks:load', function() {
+paypal.Buttons({
+    env: 'sandbox', // Valid values are sandbox and live.
+    createOrder: async () => {
+      const response = await fetch('/create_order', {method: 'POST'});
+      const responseData = await response.json();
+      return responseData.token;
+      },
+    onApprove: async (data) => {
+        const response = await fetch('/capture_order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({order_id: data.orderID})
+    });
+    const responseData = await response.json();
+    if (responseData.status === 'COMPLETED') {
+      // REDIRECT TO SUCCESS PAGE
+      window.location.assign("<%= payment_successful_path %>");
+      }
+    }
+  }).render('#paypal-button-container');
+});
+</script>

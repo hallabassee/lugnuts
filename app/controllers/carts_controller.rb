@@ -1,5 +1,4 @@
 class CartsController < ApplicationController
-  before_action :set_cart, only: [:show, :edit, :update, :destroy]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
   # GET /carts
@@ -55,20 +54,15 @@ class CartsController < ApplicationController
   # DELETE /carts/1
   # DELETE /carts/1.json
   def destroy
-    @cart.destroy if @cart.id == session[:cart_id]
-    session[:cart_id] = nil
+    @cart.destroy if @cart.id == session[:shopping_cart]
+    session[:shopping_cart] = nil
     respond_to do |format|
-      format.html { redirect_to store_index_url, notice: 'Your cart is currently empty' }
+      format.html { redirect_to products_path, notice: 'Your cart is currently empty' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_cart
-      @cart = Cart.find(params[:id])
-    end
-
     # Only allow a list of trusted parameters through.
     def cart_params
       params.fetch(:cart, {})
@@ -77,6 +71,6 @@ class CartsController < ApplicationController
     # Deal with invalid cart error
     def invalid_cart
       logger.error "Attempt to access invalid cart #{params[:id]}"
-      redirect_to store_index_url, notice: 'Invalid cart'
+      redirect_to products_path, notice: 'Invalid cart'
     end
 end
