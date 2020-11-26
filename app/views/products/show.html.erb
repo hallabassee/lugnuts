@@ -14,11 +14,8 @@
       <p class="mt-4"><%= @product.productDescription %></p>
       <hr>
       <div class="row">
-        <div class="col-md-3 col-sm-2 col-12 p-2">
-          <%= select_tag "quantity", options_for_select(1..10), {:class => 'form-control'} %>
-        </div>
-        <div class="col-md-9 col-sm-10 col-12 p-2">
-          <%= button_to 'Add to cart', line_items_path(product_id: @product, qty: 1), class: 'btn btn-primary btn-med px-2 primary-button' %>
+        <div class="col-12 p-2">
+          <%= button_to 'Add to cart', line_items_path(product_id: @product, qty: 1), class: 'btn btn-primary btn-med px-4 primary-button' %>
         </div>
       </div>
     </div>
