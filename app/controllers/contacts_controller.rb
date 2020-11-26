@@ -5,8 +5,9 @@ class ContactsController < ApplicationController
 
     def create
         @contact = Contact.new(contact_params)
+
         respond_to do |format|  
-            if @contact.save  
+            if @contact.save && verify_recaptcha(model: @contact)
                 @success = true     
                 format.js { render 'about/post_update', locals: {success: @success} }            
             else

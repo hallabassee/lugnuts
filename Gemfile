@@ -102,3 +102,5 @@ gem 'email_validator', '~> 2.0', '>= 2.0.1'
 gem 'activerecord_where_assoc', '~> 1.0'
 
 gem 'paypal-checkout-sdk', '~> 1.0', '>= 1.0.3'
+
+gem 'recaptcha', '~> 5.6', require: "recaptcha/rails"

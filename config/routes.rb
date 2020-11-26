@@ -18,7 +18,9 @@ Rails.application.routes.draw do
 	
 	get 'history', to: 'comments#history'
 
-	devise_for :users
+	devise_for :users, controllers: {
+		registrations: 'users/registrations'}
+
 	root to: 'home#index'
 	resources :products
 	resources :productlines
