@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   skip_before_action :verify_authenticity_token
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :only => [:index, :show]
   before_action :ensure_cart_isnt_empty, only: :new
   before_action :paypal_init, :only => [:create_order, :capture_order]
 
