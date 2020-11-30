@@ -64,7 +64,7 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "lugnuts_production"
 
   # Added upon instructions from Devise gem install
-  config.action_mailer.default_url_options = { host: 'adventuresinchainmaille.com' }
+  config.action_mailer.default_url_options = { host: 'safe-forest-76649.herokuapp.com' }
   config.action_mailer.perform_caching = false
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :sendgrid_actionmailer

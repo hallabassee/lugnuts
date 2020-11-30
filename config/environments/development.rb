@@ -36,7 +36,7 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = true
 
   # Sendgrid settings
-  # config.action_mailer.default_url_options = { host: 'adventuresinchainmaille.com' }
+  # config.action_mailer.default_url_options = { host: 'safe-forest-76649.herokuapp.com' }
     config.action_mailer.perform_caching = false
     config.action_mailer.perform_deliveries = true
     config.action_mailer.delivery_method = :sendgrid_actionmailer
