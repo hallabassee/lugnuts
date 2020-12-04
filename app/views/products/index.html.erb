@@ -70,9 +70,9 @@
         <%# Pagination %>
         <div class="row py-4">
           <div class="col">
-            <div class="digg_pagination pagination">
+            <div class="pagination flex-wrap pagination-sm">
               <% if @products.size > 0 %>
-                <%= will_paginate @products, :container => false %>
+                <%= will_paginate @products, :container => false, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
               <% end %>
             </div>
           </div>

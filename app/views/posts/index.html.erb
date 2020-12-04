@@ -32,9 +32,9 @@
 <%# Pagination %>
 <div class="container my-5">
   <div class="row">
-    <div class="col digg_pagination pagination">
+    <div class="col pagination flex-wrap pagination-sm">
       <% if @posts.size > 0 %>
-        <%= will_paginate @posts, :container => false %>
+        <%= will_paginate @posts, :container => false, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
       <% end %>
     </div>
   </div>
@@ -66,8 +66,8 @@
 <%# Pagination %>
 <div class="container my-5">
   <div class="row">
-    <div class="col digg_pagination pagination">
-      <%= will_paginate @posts, :container => false %>
+    <div class="col pagination flex-wrap pagination-sm">
+      <%= will_paginate @posts, :container => false, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
     </div>
   </div>
 </div>

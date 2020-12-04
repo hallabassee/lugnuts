@@ -91,7 +91,7 @@ gem 'trix'
 gem 'faker', '~> 2.14'
 
 # Pagination
-gem 'will_paginate-bootstrap', '~> 1.0', '>= 1.0.2'
+gem 'will_paginate-bootstrap4'
 
 # pretty URLs
 gem 'friendly_id', '~> 5.4', '>= 5.4.1'
