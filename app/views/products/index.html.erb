@@ -21,7 +21,7 @@
           <div class="mb-4">
             <% @categories.each do |category| %>
               <div class="">
-                <%= check_box_tag 'categories[]', category, session[:categories].to_s.include?(category), class: 'checkbox' %> <%= category %>
+                <%= check_box_tag 'categories[]', category, session[:categories].to_s.include?(category), id: "category_#{category.delete(' ').underscore}", class: 'checkbox' %> <%= category %>
               </div>
             <% end %>
           </div>

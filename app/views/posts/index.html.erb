@@ -53,7 +53,7 @@
           <small class="text-muted">
             <%= post.updated_at.strftime("%B %-d, %Y") %> by 
             <%= post.user.username %> | <%= pluralize(post.views, "View") %> | <%= pluralize(post.comments.count, "Comment") %>
-            <div class="float-right badge badge-dark"><%= post.category.category %></div>
+            <p class="float-right badge badge-dark"><%= post.category.category %></p>
             <% if current_user && (current_user.admin || current_user == post.user)%>
               | <%= link_to "Delete", post, method: :delete %>
             <% end %>
