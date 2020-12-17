@@ -2,8 +2,7 @@ class Product < ApplicationRecord
     self.primary_key = "productCode"
     self.per_page = 12
     has_one :product_image_map, :class_name => "ProductImageMap", :foreign_key => "productCode", :primary_key => "productCode"
-    has_many :line_items
-    has_many :orders, through: :line_items, :foreign_key => "productCode"
+    has_many :line_items, dependent: :destroy
     before_destroy :ensure_not_referenced_by_any_line_item
      
 private
